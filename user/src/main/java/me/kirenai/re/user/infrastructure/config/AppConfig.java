@@ -1,9 +1,9 @@
 package me.kirenai.re.user.infrastructure.config;
 
 import me.kirenai.re.user.application.service.UserService;
-import me.kirenai.re.user.application.usecases.CreateUserUseCase;
-import me.kirenai.re.user.application.usecases.GetUserUseCase;
+import me.kirenai.re.user.application.usecases.*;
 import me.kirenai.re.user.domain.port.out.UserRepositoryPort;
+import me.kirenai.re.user.domain.port.out.UserSortingRepositoryPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,10 +11,14 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     @Bean
-    public UserService userService(UserRepositoryPort userRepositoryPort) {
+    public UserService userService(UserRepositoryPort userRepositoryPort,
+                                   UserSortingRepositoryPort userSortingRepositoryPort) {
         return new UserService(
                 new GetUserUseCase(userRepositoryPort),
-                new CreateUserUseCase(userRepositoryPort)
+                new ListUsersUseCase(userSortingRepositoryPort),
+                new CreateUserUseCase(userRepositoryPort),
+                new UpdateUserUseCase(userRepositoryPort),
+                new DeleteUserUseCase(userRepositoryPort)
         );
     }
 

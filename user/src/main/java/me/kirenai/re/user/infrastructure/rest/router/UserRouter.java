@@ -15,8 +15,11 @@ public class UserRouter {
     @Bean
     public RouterFunction<ServerResponse> router(UserHandler userHandler) {
         return RouterFunctions.route()
+                .GET(PATH, userHandler::findAll)
                 .GET(PATH + "/{userId}", userHandler::findById)
                 .POST(PATH, userHandler::create)
+                .PUT(PATH + "/{userId}", userHandler::update)
+                .DELETE(PATH + "/{userId}", userHandler::delete)
                 .build();
     }
 

@@ -9,4 +9,8 @@ public interface UserRepositoryPort {
 
     Mono<User> createUser(User user);
 
+    Mono<User> updateUser(Long userId, User user);
+
+    Mono<Void> deleteUser(Long userId);
+
 }
