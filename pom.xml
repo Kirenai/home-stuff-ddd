@@ -12,6 +12,7 @@
 
     <modules>
         <module>user</module>
+        <module>role</module>
     </modules>
 
     <properties>
