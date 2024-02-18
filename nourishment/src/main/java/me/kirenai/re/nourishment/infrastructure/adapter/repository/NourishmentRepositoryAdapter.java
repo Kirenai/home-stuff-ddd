@@ -1,10 +1,9 @@
-package me.kirenai.re.nourishment.infrastructure.adapter;
+package me.kirenai.re.nourishment.infrastructure.adapter.repository;
 
 import lombok.RequiredArgsConstructor;
 import me.kirenai.re.nourishment.domain.model.Nourishment;
-import me.kirenai.re.nourishment.domain.port.out.NourishmentRepositoryPort;
+import me.kirenai.re.nourishment.domain.port.out.repository.NourishmentRepositoryPort;
 import me.kirenai.re.nourishment.infrastructure.mapper.NourishmentMapper;
-import me.kirenai.re.nourishment.infrastructure.mapper.impl.AbstractNourishmentMapper;
 import me.kirenai.re.nourishment.infrastructure.repository.NourishmentRepository;
 import me.kirenai.re.nourishment.util.MapperUtils;
 import org.springframework.stereotype.Component;

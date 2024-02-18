@@ -3,7 +3,7 @@ package me.kirenai.re.nourishment.application.usecases;
 import lombok.RequiredArgsConstructor;
 import me.kirenai.re.nourishment.domain.model.Nourishment;
 import me.kirenai.re.nourishment.domain.port.in.UpdateNourishmentPort;
-import me.kirenai.re.nourishment.domain.port.out.NourishmentRepositoryPort;
+import me.kirenai.re.nourishment.domain.port.out.repository.NourishmentRepositoryPort;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor

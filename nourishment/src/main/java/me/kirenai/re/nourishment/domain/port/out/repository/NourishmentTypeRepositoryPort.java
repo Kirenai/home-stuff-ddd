@@ -1,4 +1,4 @@
-package me.kirenai.re.nourishment.domain.port.out;
+package me.kirenai.re.nourishment.domain.port.out.repository;
 
 import me.kirenai.re.nourishment.domain.model.NourishmentType;
 import reactor.core.publisher.Mono;

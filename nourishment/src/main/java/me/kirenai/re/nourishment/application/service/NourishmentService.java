@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.nourishment.domain.model.Nourishment;
 import me.kirenai.re.nourishment.domain.port.in.*;
+import me.kirenai.re.nourishment.domain.port.out.client.UserClientPort;
 import org.springframework.data.domain.PageRequest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,6 +18,7 @@ public class NourishmentService {
     private final CreateNourishmentPort createNourishmentPort;
     private final UpdateNourishmentPort updateNourishmentPort;
     private final DeleteNourishmentPort deleteNourishmentPort;
+    private final UserClientPort userClientPort;
 
     public Flux<Nourishment> getNourishments(PageRequest pageable) {
         log.info("Invoking NourishmentService.getNourishments method");
@@ -42,7 +44,11 @@ public class NourishmentService {
         log.info("Invoking NourishmentService.create method");
         // TODO: call user and category services
         nourishment.setIsAvailable(Boolean.TRUE);
-        return this.createNourishmentPort.createNourishment(nourishment);
+        return this.userClientPort.getUserByUserId(userId)
+                .flatMap(userResponse -> {
+                    nourishment.setUserId(userResponse.userId());
+                    return this.createNourishmentPort.createNourishment(nourishment);
+                });
     }
 
     public Mono<Nourishment> updateNourishment(Long nourishmentId, Nourishment nourishment) {

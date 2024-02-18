@@ -1,8 +1,8 @@
-package me.kirenai.re.nourishment.infrastructure.adapter;
+package me.kirenai.re.nourishment.infrastructure.adapter.repository;
 
 import lombok.RequiredArgsConstructor;
 import me.kirenai.re.nourishment.domain.model.Nourishment;
-import me.kirenai.re.nourishment.domain.port.out.NourishmentSortingRepositoryPort;
+import me.kirenai.re.nourishment.domain.port.out.repository.NourishmentSortingRepositoryPort;
 import me.kirenai.re.nourishment.infrastructure.mapper.NourishmentMapper;
 import me.kirenai.re.nourishment.infrastructure.repository.NourishmentSortingRepository;
 import org.springframework.data.domain.Pageable;

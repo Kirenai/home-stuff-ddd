@@ -3,7 +3,7 @@ package me.kirenai.re.nourishment.infrastructure.mapper.impl;
 import lombok.Setter;
 import me.kirenai.re.nourishment.domain.model.Nourishment;
 import me.kirenai.re.nourishment.domain.model.dto.*;
-import me.kirenai.re.nourishment.domain.port.out.NourishmentTypeRepositoryPort;
+import me.kirenai.re.nourishment.domain.port.out.repository.NourishmentTypeRepositoryPort;
 import me.kirenai.re.nourishment.infrastructure.mapper.NourishmentMapper;
 import me.kirenai.re.nourishment.util.enums.NourishmentTypeEnum;
 import org.mapstruct.Mapper;
