@@ -1,6 +1,6 @@
 package me.kirenai.re.nourishment.domain.model.dto;
 
-public record UserResponse(
-        Long userId
+public record GetCategoryResponse(
+        Long categoryId
 ) {
 }

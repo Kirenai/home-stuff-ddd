@@ -1,10 +1,10 @@
 package me.kirenai.re.nourishment.domain.port.out.client;
 
-import me.kirenai.re.nourishment.domain.model.dto.UserResponse;
+import me.kirenai.re.nourishment.domain.model.dto.GetUserResponse;
 import reactor.core.publisher.Mono;
 
 public interface UserClientPort {
 
-    Mono<UserResponse> getUserByUserId(Long userId);
+    Mono<GetUserResponse> getUserByUserId(Long userId);
 
 }
