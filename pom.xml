@@ -14,6 +14,7 @@
         <module>user</module>
         <module>role</module>
         <module>nourishment</module>
+        <module>category</module>
     </modules>
 
     <properties>
