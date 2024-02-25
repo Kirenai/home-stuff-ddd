@@ -39,7 +39,8 @@ public class NourishmentHandler {
     public Mono<ServerResponse> findById(ServerRequest request) {
         String nourishmentId = request.pathVariable("nourishmentId");
         return this.nourishmentService.getNourishmentById(Long.valueOf(nourishmentId))
-                .flatMap(nourishment -> ServerResponse.ok().bodyValue(nourishment));
+                .flatMap(this.mapper::mapOutNourishmentToGetNourishmentResponse)
+                .flatMap(response -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(response));
     }
 
     public Mono<ServerResponse> findAllByUserId(ServerRequest request) {
@@ -82,7 +83,7 @@ public class NourishmentHandler {
     public Mono<ServerResponse> delete(ServerRequest request) {
         String nourishmentId = request.pathVariable("nourishmentId");
         return this.nourishmentService.deleteNourishment(Long.valueOf(nourishmentId))
-                .flatMap(nourishment -> ServerResponse.ok().bodyValue(Mono.empty()));
+                .then(Mono.defer(() -> ServerResponse.ok().bodyValue(Mono.empty())));
     }
 
 }

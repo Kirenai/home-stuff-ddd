@@ -2,6 +2,7 @@ package me.kirenai.re.nourishment.infrastructure.mapper;
 
 import me.kirenai.re.nourishment.domain.model.Nourishment;
 import me.kirenai.re.nourishment.domain.model.dto.CreateNourishmentRequest;
+import me.kirenai.re.nourishment.domain.model.dto.GetNourishmentResponse;
 import me.kirenai.re.nourishment.domain.model.dto.ListNourishmentsResponse;
 import me.kirenai.re.nourishment.domain.model.dto.UpdateNourishmentRequest;
 import me.kirenai.re.nourishment.infrastructure.entity.NourishmentEntity;
@@ -24,6 +25,10 @@ public interface NourishmentMapper {
 
     // Map Out
     Nourishment mapOutNourishmentEntityToNourishment(NourishmentEntity nourishmentEntity);
+
+    Mono<GetNourishmentResponse> mapOutNourishmentToGetNourishmentResponse(Nourishment nourishment);
+
+    GetNourishmentResponse mapOutGetNourishmentResponse(Nourishment nourishment);
 
     Mono<ListNourishmentsResponse> mapOutNourishmentToListNourishmentsResponse(Nourishment nourishment);
 

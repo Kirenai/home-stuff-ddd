@@ -20,7 +20,6 @@ public abstract class AbstractNourishmentMapper implements NourishmentMapper {
 
     private NourishmentTypeRepositoryPort nourishmentTypeRepositoryPort;
 
-
     @Override
     public Mono<Nourishment> mapInCreateNourishmentRequestToNourishment(CreateNourishmentRequest createNourishmentRequest) {
         if (Objects.isNull(createNourishmentRequest)) {
@@ -58,7 +57,7 @@ public abstract class AbstractNourishmentMapper implements NourishmentMapper {
         Nourishment nourishment = this.mapInNourishment(updateNourishmentRequest);
 
         return switch (updateNourishmentRequest.type()) {
-            case CreateNourishmentTypeUnitRequest unit -> {
+            case UpdateNourishmentTypeUnitRequest unit -> {
                 nourishment.setUnit(unit.unit());
                 yield this.nourishmentTypeRepositoryPort.findByName(unit.nourishmentType().getName())
                         .map(nourishmentType -> {
@@ -66,7 +65,7 @@ public abstract class AbstractNourishmentMapper implements NourishmentMapper {
                             return nourishment;
                         });
             }
-            case CreateNourishmentTypePercentageRequest percentage -> {
+            case UpdateNourishmentTypePercentageRequest percentage -> {
                 nourishment.setPercentage(percentage.percentage());
                 yield this.nourishmentTypeRepositoryPort.findByName(percentage.nourishmentType().getName())
                         .map(nourishmentType -> {
@@ -75,6 +74,32 @@ public abstract class AbstractNourishmentMapper implements NourishmentMapper {
                         });
             }
         };
+    }
+
+    @Override
+    public Mono<GetNourishmentResponse> mapOutNourishmentToGetNourishmentResponse(Nourishment nourishment) {
+        if (Objects.isNull(nourishment)) {
+            return null;
+        }
+
+        GetNourishmentResponse getNourishmentResponse = this.mapOutGetNourishmentResponse(nourishment);
+
+        return this.nourishmentTypeRepositoryPort.findById(nourishment.getNourishmentTypeId())
+                .map(nourishmentTypeEntity -> {
+                    switch (nourishmentTypeEntity.name()) {
+                        case UNIT -> getNourishmentResponse.setType(
+                                this.mapOutGetNourishmentTypeUnitResponse(
+                                        nourishment,
+                                        nourishmentTypeEntity.name()
+                                ));
+                        case PERCENTAGE -> getNourishmentResponse.setType(
+                                this.mapOutGetNourishmentTypePercentageResponse(
+                                        nourishment,
+                                        nourishmentTypeEntity.name()
+                                ));
+                    }
+                    return getNourishmentResponse;
+                });
     }
 
     @Override
@@ -102,6 +127,14 @@ public abstract class AbstractNourishmentMapper implements NourishmentMapper {
                     return listNourishmentsResponse;
                 });
     }
+
+    @Mapping(target = "nourishmentType", source = "type")
+    @Mapping(target = "unit", source = "nourishment.unit")
+    abstract GetNourishmentTypeUnitResponse mapOutGetNourishmentTypeUnitResponse(Nourishment nourishment, NourishmentTypeEnum type);
+
+    @Mapping(target = "nourishmentType", source = "type")
+    @Mapping(target = "percentage", source = "nourishment.percentage")
+    abstract GetNourishmentTypePercentageResponse mapOutGetNourishmentTypePercentageResponse(Nourishment nourishment, NourishmentTypeEnum type);
 
     @Mapping(target = "nourishmentType", source = "type")
     @Mapping(target = "unit", source = "nourishment.unit")

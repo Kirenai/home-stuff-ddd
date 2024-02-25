@@ -14,6 +14,6 @@ public class GetNourishmentResponse {
     private String imageUrl;
     private String description;
     private Boolean isAvailable;
-    private ListNourishmentsTypeResponse type;
+    private GetNourishmentTypeResponse type;
 
 }

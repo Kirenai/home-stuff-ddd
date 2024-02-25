@@ -11,6 +11,6 @@ public record UpdateNourishmentRequest(
         String name,
         String imageUrl,
         String description,
-        CreateNourishmentTypeRequest type
+        UpdateNourishmentTypeRequest type
 ) {
 }
