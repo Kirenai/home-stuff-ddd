@@ -15,6 +15,7 @@
         <module>role</module>
         <module>nourishment</module>
         <module>category</module>
+        <module>consumption</module>
     </modules>
 
     <properties>
