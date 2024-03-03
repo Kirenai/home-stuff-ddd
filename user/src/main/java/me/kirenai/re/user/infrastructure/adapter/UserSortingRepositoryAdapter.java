@@ -1,6 +1,7 @@
 package me.kirenai.re.user.infrastructure.adapter;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.user.domain.model.User;
 import me.kirenai.re.user.domain.port.out.UserSortingRepositoryPort;
 import me.kirenai.re.user.infrastructure.mapper.UserMapper;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class UserSortingRepositoryAdapter implements UserSortingRepositoryPort {
@@ -18,6 +20,7 @@ public class UserSortingRepositoryAdapter implements UserSortingRepositoryPort {
 
     @Override
     public Flux<User> findAll(Pageable pageable) {
+        log.info("Invoking UserSortingRepositoryAdapter.findAll method");
         return this.userSortingRepository.findAllBy(pageable)
                 .map(this.mapper::mapOutUserEntityToUser);
     }
