@@ -37,6 +37,7 @@ public class NourishmentHandler {
     }
 
     public Mono<ServerResponse> findById(ServerRequest request) {
+        log.info("Invoking NourishmentHandler.findById method");
         String nourishmentId = request.pathVariable("nourishmentId");
         return this.nourishmentService.getNourishmentById(Long.valueOf(nourishmentId))
                 .flatMap(this.mapper::mapOutNourishmentToGetNourishmentResponse)
@@ -44,6 +45,7 @@ public class NourishmentHandler {
     }
 
     public Mono<ServerResponse> findAllByUserId(ServerRequest request) {
+        log.info("Invoking NourishmentHandler.findAllByUserId method");
         String userId = request.pathVariable("userId");
         Flux<ListNourishmentsResponse> response = this.nourishmentService.getNourishmentsByUserId(Long.valueOf(userId))
                 .flatMap(this.mapper::mapOutNourishmentToListNourishmentsResponse);
@@ -51,6 +53,7 @@ public class NourishmentHandler {
     }
 
     public Mono<ServerResponse> findAllByIsAvailable(ServerRequest request) {
+        log.info("Invoking NourishmentHandler.findAllByIsAvailable method");
         String isAvailable = request.pathVariable("isAvailable");
         Flux<ListNourishmentsResponse> response = this.nourishmentService.getNourishmentsByIsAvailable(Boolean.valueOf(isAvailable))
                 .flatMap(this.mapper::mapOutNourishmentToListNourishmentsResponse);
@@ -58,6 +61,7 @@ public class NourishmentHandler {
     }
 
     public Mono<ServerResponse> create(ServerRequest request) {
+        log.info("Invoking NourishmentHandler.create method");
         String userId = request.pathVariable("userId");
         String categoryId = request.pathVariable("categoryId");
         return request.bodyToMono(CreateNourishmentRequest.class)
@@ -70,6 +74,7 @@ public class NourishmentHandler {
     }
 
     public Mono<ServerResponse> update(ServerRequest request) {
+        log.info("Invoking NourishmentHandler.update method");
         String nourishmentId = request.pathVariable("nourishmentId");
         return request.bodyToMono(UpdateNourishmentRequest.class)
                 .flatMap(this.mapper::mapInUpdateNourishmentRequestToNourishment)
@@ -81,6 +86,7 @@ public class NourishmentHandler {
     }
 
     public Mono<ServerResponse> delete(ServerRequest request) {
+        log.info("Invoking NourishmentHandler.delete method");
         String nourishmentId = request.pathVariable("nourishmentId");
         return this.nourishmentService.deleteNourishment(Long.valueOf(nourishmentId))
                 .then(Mono.defer(() -> ServerResponse.ok().bodyValue(Mono.empty())));
