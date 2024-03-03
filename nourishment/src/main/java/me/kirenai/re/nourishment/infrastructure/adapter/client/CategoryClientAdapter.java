@@ -21,7 +21,7 @@ public class CategoryClientAdapter implements CategoryClientPort {
         log.info("Invoking CategoryClientAdapter.getCategoryByCategoryId method");
         return this.webClient
                 .get()
-                .uri("http://localhost:8084/api/v0/categories/{categoryId}", categoryId)
+                .uri("http://CATEGORY/api/v0/categories/{categoryId}", categoryId)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchangeToMono(clientResponse -> clientResponse.bodyToMono(GetCategoryResponse.class));
     }

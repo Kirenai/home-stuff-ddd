@@ -5,4 +5,7 @@ spring:
     url: r2dbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/hs_nourishment
     username: ${MYSQL_USERNAME:root}
     password: ${MYSQL_PASSWORD:}
-
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: https://{EUREKA_SERVER:localhost}:{EUREKA_SERVER_PORT:8761}/eureka/

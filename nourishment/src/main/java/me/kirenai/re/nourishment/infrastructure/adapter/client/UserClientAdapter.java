@@ -21,7 +21,7 @@ public class UserClientAdapter implements UserClientPort {
         log.info("Invoking UserClientAdapter.getUserByUserId method");
         return this.webClient
                 .get()
-                .uri("uri/{userId}", userId)
+                .uri("http://USER/api/v0/users/{userId}", userId)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchangeToMono(clientResponse -> clientResponse.bodyToMono(GetUserResponse.class));
     }
