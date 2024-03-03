@@ -1,4 +1,4 @@
-package me.kirenai.re.role.domain.port.out;
+package me.kirenai.re.role.domain.port.out.repository;
 
 import me.kirenai.re.role.domain.model.Role;
 import reactor.core.publisher.Mono;

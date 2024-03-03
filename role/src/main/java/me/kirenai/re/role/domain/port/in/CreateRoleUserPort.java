@@ -1,10 +1,10 @@
 package me.kirenai.re.role.domain.port.in;
 
-import me.kirenai.re.role.domain.model.Role;
+import me.kirenai.re.role.domain.model.RoleUser;
 import reactor.core.publisher.Mono;
 
 public interface CreateRoleUserPort {
 
-    Mono<Void> createRoleUser(Long userId, Role role);
+    Mono<Void> createRoleUser(RoleUser roleUser);
 
 }

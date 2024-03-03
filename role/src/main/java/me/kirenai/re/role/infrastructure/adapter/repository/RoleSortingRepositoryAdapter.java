@@ -1,8 +1,8 @@
-package me.kirenai.re.role.infrastructure.adapter;
+package me.kirenai.re.role.infrastructure.adapter.repository;
 
 import lombok.RequiredArgsConstructor;
 import me.kirenai.re.role.domain.model.Role;
-import me.kirenai.re.role.domain.port.out.RoleSortingRepositoryPort;
+import me.kirenai.re.role.domain.port.out.repository.RoleSortingRepositoryPort;
 import me.kirenai.re.role.infrastructure.mapper.RoleMapper;
 import me.kirenai.re.role.infrastructure.repository.RoleSortingRepository;
 import org.springframework.data.domain.Pageable;

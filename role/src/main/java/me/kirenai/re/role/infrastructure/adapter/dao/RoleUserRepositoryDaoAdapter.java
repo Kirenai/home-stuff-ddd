@@ -2,7 +2,8 @@ package me.kirenai.re.role.infrastructure.adapter.dao;
 
 import lombok.RequiredArgsConstructor;
 import me.kirenai.re.role.domain.model.Role;
-import me.kirenai.re.role.domain.port.out.RoleUserRepositoryDaoPort;
+import me.kirenai.re.role.domain.model.RoleUser;
+import me.kirenai.re.role.domain.port.out.dao.RoleUserRepositoryDaoPort;
 import me.kirenai.re.role.infrastructure.entity.RoleUserEntity;
 import me.kirenai.re.role.infrastructure.mapper.RoleMapper;
 import org.springframework.r2dbc.core.DatabaseClient;
@@ -20,7 +21,11 @@ public class RoleUserRepositoryDaoAdapter implements RoleUserRepositoryDaoPort {
     @Override
     public Flux<Role> findByUserId(Long userId) {
         return this.client
-                .sql("SELECT r.role_id r_roleId, r.name r_name FROM roles r LEFT JOIN roles_users ru ON r.role_id = ru.role_id WHERE ru.user_id = :userId")
+                .sql("""
+                        SELECT r.role_id r_roleId, r.name r_name
+                        FROM roles r LEFT JOIN roles_users ru ON r.role_id = ru.role_id 
+                        WHERE ru.user_id = :userId
+                        """)
                 .bind("userId", userId)
                 .fetch()
                 .all()
@@ -31,11 +36,11 @@ public class RoleUserRepositoryDaoAdapter implements RoleUserRepositoryDaoPort {
     }
 
     @Override
-    public Mono<Void> saveRoleUser(Long userId, Role role) {
+    public Mono<Void> saveRoleUser(RoleUser roleUser) {
         return this.client
                 .sql("INSERT INTO roles_users(role_id, user_id) VALUES(:roleId, :userId)")
-                .bind("roleId", role.getRoleId())
-                .bind("userId", userId)
+                .bind("roleId", roleUser.getRoleId())
+                .bind("userId", roleUser.getUserId())
                 .fetch()
                 .first()
                 .then();

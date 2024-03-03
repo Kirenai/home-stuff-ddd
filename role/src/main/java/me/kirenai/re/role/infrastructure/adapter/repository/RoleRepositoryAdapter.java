@@ -1,8 +1,8 @@
-package me.kirenai.re.role.infrastructure.adapter;
+package me.kirenai.re.role.infrastructure.adapter.repository;
 
 import lombok.RequiredArgsConstructor;
 import me.kirenai.re.role.domain.model.Role;
-import me.kirenai.re.role.domain.port.out.RoleRepositoryPort;
+import me.kirenai.re.role.domain.port.out.repository.RoleRepositoryPort;
 import me.kirenai.re.role.infrastructure.mapper.RoleMapper;
 import me.kirenai.re.role.infrastructure.repository.RoleRepository;
 import me.kirenai.re.role.infrastructure.util.MapperUtils;

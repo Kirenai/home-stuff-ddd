@@ -3,7 +3,9 @@ package me.kirenai.re.role.application.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.role.domain.model.Role;
+import me.kirenai.re.role.domain.model.RoleUser;
 import me.kirenai.re.role.domain.port.in.*;
+import me.kirenai.re.role.domain.port.out.client.UserClientPort;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,6 +21,7 @@ public class RoleService {
     private final CreateRolePort createRolePort;
     private final CreateRoleUserPort createRoleUserPort;
     private final UpdateRolePort updateRolePort;
+    private final UserClientPort userClientPort;
 
     public Flux<Role> getRoles(Pageable pageable) {
         log.info("Invoking RoleService.getRoles method");
@@ -43,7 +46,13 @@ public class RoleService {
     public Mono<Void> createRoleUser(Long userId) {
         log.info("Invoking RoleService.createRoleUser method");
         return this.getRolePort.getRoleByName(DEFAULT_ROLE)
-                .flatMap(role -> this.createRoleUserPort.createRoleUser(userId, role));
+                .zipWith(this.userClientPort.getUserByUserId(userId),
+                        (role, userResponse) -> RoleUser
+                                .builder()
+                                .roleId(role.getRoleId())
+                                .userId(userResponse.userId())
+                                .build())
+                .flatMap(this.createRoleUserPort::createRoleUser);
     }
 
     public Mono<Role> updateRole(Long roleId, Role role) {
