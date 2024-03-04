@@ -7,6 +7,8 @@
     <file url="file://$PROJECT_DIR$/consumption/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eureka-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eureka-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/nourishment/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/nourishment/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/role/src/main/java" charset="UTF-8" />

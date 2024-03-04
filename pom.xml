@@ -17,6 +17,7 @@
         <module>category</module>
         <module>consumption</module>
         <module>eureka-server</module>
+        <module>gateway</module>
     </modules>
 
     <properties>
