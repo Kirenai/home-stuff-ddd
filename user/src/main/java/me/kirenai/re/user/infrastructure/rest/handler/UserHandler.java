@@ -7,6 +7,7 @@ import me.kirenai.re.user.domain.model.dto.CreateUserRequest;
 import me.kirenai.re.user.domain.model.dto.ListUsersResponse;
 import me.kirenai.re.user.domain.model.dto.UpdateUserRequest;
 import me.kirenai.re.user.infrastructure.mapper.UserMapper;
+import me.kirenai.re.validation.Validator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ public class UserHandler {
 
     private final UserService userService;
     private final UserMapper mapper;
+    private final Validator validator;
 
     public Mono<ServerResponse> findAll(ServerRequest serverRequest) {
         log.info("Invoking UserHandler.findAll method");
@@ -50,6 +52,7 @@ public class UserHandler {
     public Mono<ServerResponse> create(ServerRequest serverRequest) {
         log.info("Invoking UserHandler.create method");
         return serverRequest.bodyToMono(CreateUserRequest.class)
+                .doOnNext(this.validator::validate)
                 .map(this.mapper::mapInCreateUserRequestToUser)
                 .flatMap(this.userService::createUser)
                 .map(this.mapper::mapOutUserToCreateUserResponse)
@@ -60,6 +63,7 @@ public class UserHandler {
         log.info("Invoking UserHandler.update method");
         Long userId = Long.parseLong(serverRequest.pathVariable(USER_ID_PATH_PARAM));
         return serverRequest.bodyToMono(UpdateUserRequest.class)
+                .doOnNext(this.validator::validate)
                 .map(this.mapper::mapInUpdateUserRequestToUser)
                 .flatMap(user -> this.userService.updateUser(userId, user))
                 .map(this.mapper::mapOutUserToUpdateUserResponse)
