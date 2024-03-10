@@ -7,6 +7,7 @@ import me.kirenai.re.role.domain.model.dto.CreateRoleRequest;
 import me.kirenai.re.role.domain.model.dto.ListRolesResponse;
 import me.kirenai.re.role.domain.model.dto.UpdateRoleRequest;
 import me.kirenai.re.role.infrastructure.mapper.RoleMapper;
+import me.kirenai.re.validation.Validator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,10 @@ public class RoleHandler {
 
     private final RoleService roleService;
     private final RoleMapper mapper;
+    private final Validator validator;
 
     public Mono<ServerResponse> findAll(ServerRequest serverRequest) {
+        log.info("Invoking RoleHandler.findAll method");
         int page = Integer.parseInt(serverRequest.queryParam("page").orElse("0"));
         int size = Integer.parseInt(serverRequest.queryParam("size").orElse("3"));
         String[] sort = serverRequest.queryParam("sort").orElse("roleId,ASC").split(",");
@@ -56,6 +59,7 @@ public class RoleHandler {
     public Mono<ServerResponse> create(ServerRequest request) {
         log.info("Invoking RoleHandler.save method");
         return request.bodyToMono(CreateRoleRequest.class)
+                .doOnNext(this.validator::validate)
                 .map(this.mapper::mapInCreateRoleRequestToUser)
                 .flatMap(this.roleService::createRole)
                 .map(this.mapper::mapOutRoleToCreateRoleResponse)
@@ -75,6 +79,7 @@ public class RoleHandler {
         log.info("Invoking RoleHandler.update method");
         String roleId = request.pathVariable("roleId");
         return request.bodyToMono(UpdateRoleRequest.class)
+                .doOnNext(this.validator::validate)
                 .map(this.mapper::mapInUpdateRoleRequestToUser)
                 .flatMap(role -> this.roleService.updateRole(Long.parseLong(roleId), role))
                 .map(this.mapper::mapOutRoleToUpdateRoleResponse)
