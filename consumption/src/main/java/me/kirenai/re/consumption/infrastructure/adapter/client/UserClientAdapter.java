@@ -1,5 +1,6 @@
 package me.kirenai.re.consumption.infrastructure.adapter.client;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.consumption.domain.model.dto.GetUserResponse;
 import me.kirenai.re.consumption.domain.port.out.client.UserClientPort;
@@ -11,13 +12,11 @@ import reactor.core.publisher.Mono;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class UserClientAdapter implements UserClientPort {
 
+    @Qualifier("webClientUser")
     private final WebClient webClient;
-
-    public UserClientAdapter(@Qualifier("webClientUser") WebClient webClient) {
-        this.webClient = webClient;
-    }
 
     @Override
     public Mono<GetUserResponse> getUserByUserId(Long userId) {
