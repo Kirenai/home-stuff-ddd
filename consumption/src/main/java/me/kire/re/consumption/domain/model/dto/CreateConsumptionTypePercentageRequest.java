@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import me.kire.re.consumption.util.enums.ConsumptionTypeEnum;
@@ -17,6 +19,8 @@ public record CreateConsumptionTypePercentageRequest(
         @NotNull
         ConsumptionTypeEnum consumptionType,
         @NotNull
+        @Min(value = 0)
+        @Max(value = 100)
         Integer percentage
 ) implements CreateConsumptionTypeRequest {
 

@@ -6,16 +6,13 @@ import me.kire.re.consumption.application.service.ConsumptionService;
 import me.kire.re.consumption.domain.model.dto.CreateConsumptionRequest;
 import me.kire.re.consumption.domain.model.dto.ListConsumptionsResponse;
 import me.kire.re.consumption.infrastructure.mapper.ConsumptionMapper;
+import me.kirenai.re.validation.Validator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import org.springframework.web.server.ServerWebInputException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -58,7 +55,7 @@ public class ConsumptionHandler {
         String userId = request.pathVariable("userId");
         String nourishmentId = request.pathVariable("nourishmentId");
         return request.bodyToMono(CreateConsumptionRequest.class)
-                .doOnNext(this::validate)
+                .doOnNext(this.validator::validate)
                 .map(this.mapper::mapInCreateConsumptionRequestToConsumption)
                 .flatMap(consumption -> this.consumptionService.createConsumption(
                         Long.valueOf(userId),
@@ -69,14 +66,6 @@ public class ConsumptionHandler {
                 .flatMap(consumptionResponse -> status(HttpStatus.CREATED)
                         .contentType(APPLICATION_JSON)
                         .bodyValue(consumptionResponse));
-    }
-
-    private void validate(CreateConsumptionRequest createConsumptionRequest) {
-        Errors errors = new BeanPropertyBindingResult(createConsumptionRequest, createConsumptionRequest.getClass().getName());
-        validator.validate(createConsumptionRequest, errors);
-        if (errors.hasErrors()) {
-            throw new ServerWebInputException(errors.toString());
-        }
     }
 
 }
