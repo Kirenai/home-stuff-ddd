@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import me.kirenai.re.nourishment.util.enums.NourishmentTypeEnum;
 
@@ -13,7 +16,11 @@ import me.kirenai.re.nourishment.util.enums.NourishmentTypeEnum;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonDeserialize(as = UpdateNourishmentTypePercentageRequest.class)
 public record UpdateNourishmentTypePercentageRequest(
+        @NotNull
         NourishmentTypeEnum nourishmentType,
+        @NotNull
+        @Max(value = 100)
+        @Min(value = 0)
         Integer percentage
 ) implements UpdateNourishmentTypeRequest {
 

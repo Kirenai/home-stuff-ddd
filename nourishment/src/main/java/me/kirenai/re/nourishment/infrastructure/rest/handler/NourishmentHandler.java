@@ -7,6 +7,7 @@ import me.kirenai.re.nourishment.domain.model.dto.CreateNourishmentRequest;
 import me.kirenai.re.nourishment.domain.model.dto.ListNourishmentsResponse;
 import me.kirenai.re.nourishment.domain.model.dto.UpdateNourishmentRequest;
 import me.kirenai.re.nourishment.infrastructure.mapper.NourishmentMapper;
+import me.kirenai.re.validation.Validator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,7 @@ public class NourishmentHandler {
 
     private final NourishmentService nourishmentService;
     private final NourishmentMapper mapper;
+    private final Validator validator;
 
     public Mono<ServerResponse> findAll(ServerRequest request) {
         log.info("Invoking NourishmentHandler.findAll method");
@@ -65,6 +67,7 @@ public class NourishmentHandler {
         String userId = request.pathVariable("userId");
         String categoryId = request.pathVariable("categoryId");
         return request.bodyToMono(CreateNourishmentRequest.class)
+                .doOnNext(this.validator::validate)
                 .flatMap(this.mapper::mapInCreateNourishmentRequestToNourishment)
                 .flatMap(nourishment -> this.nourishmentService
                         .createNourishment(Long.valueOf(userId), Long.valueOf(categoryId), nourishment))
@@ -77,6 +80,7 @@ public class NourishmentHandler {
         log.info("Invoking NourishmentHandler.update method");
         String nourishmentId = request.pathVariable("nourishmentId");
         return request.bodyToMono(UpdateNourishmentRequest.class)
+                .doOnNext(this.validator::validate)
                 .flatMap(this.mapper::mapInUpdateNourishmentRequestToNourishment)
                 .flatMap(nourishment -> this.nourishmentService
                         .updateNourishment(Long.valueOf(nourishmentId), nourishment))
