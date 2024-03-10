@@ -7,6 +7,7 @@ import me.kirenai.re.category.domain.model.dto.CreateCategoryRequest;
 import me.kirenai.re.category.domain.model.dto.ListCategoriesResponse;
 import me.kirenai.re.category.domain.model.dto.UpdateCategoryRequest;
 import me.kirenai.re.category.infrastructure.mapper.CategoryMapper;
+import me.kirenai.re.validation.Validator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ public class CategoryHandler {
 
     private final CategoryService categoryService;
     private final CategoryMapper mapper;
+    private final Validator validator;
 
     public Mono<ServerResponse> findAll(ServerRequest serverRequest) {
         log.info("Invoking CategoryHandler.findAll method");
@@ -51,6 +53,7 @@ public class CategoryHandler {
     public Mono<ServerResponse> create(ServerRequest request) {
         log.info("Invoking CategoryHandler.create method");
         return request.bodyToMono(CreateCategoryRequest.class)
+                .doOnNext(this.validator::validate)
                 .map(this.mapper::mapInCreateCategoryRequestToCategory)
                 .flatMap(this.categoryService::createCategory)
                 .map(this.mapper::mapOutCategoryToCreateCategoryResponse)
@@ -63,6 +66,7 @@ public class CategoryHandler {
         log.info("Invoking CategoryHandler.update method");
         String categoryId = request.pathVariable(PATH_PARAM_CATEGORY_ID);
         return request.bodyToMono(UpdateCategoryRequest.class)
+                .doOnNext(this.validator::validate)
                 .map(this.mapper::mapInUpdateCategoryRequestToCategory)
                 .flatMap(category -> this.categoryService.updateCategory(Long.valueOf(categoryId), category))
                 .map(this.mapper::mapOutCategoryToUpdateCategoryResponse)
