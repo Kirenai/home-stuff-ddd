@@ -17,7 +17,7 @@ public class UserErrorAttributes extends DefaultErrorAttributes {
 
     @Override
     public Map<String, Object> getErrorAttributes(ServerRequest serverRequest, ErrorAttributeOptions options) {
-        log.info("Invoking CustomErrorAttributes#getErrorAttributes(..) method");
+        log.info("Invoking UserErrorAttributes#getErrorAttributes(..) method");
         Map<String, Object> errorAttributes = new LinkedHashMap<>();
         Throwable throwable = super.getError(serverRequest);
 
