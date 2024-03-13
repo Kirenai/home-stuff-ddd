@@ -2,6 +2,7 @@ package me.kirenai.re.user.infrastructure.adapter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.kirenai.re.user.domain.exception.UserNotFoundException;
 import me.kirenai.re.user.domain.model.User;
 import me.kirenai.re.user.domain.port.out.UserRepositoryPort;
 import me.kirenai.re.user.infrastructure.mapper.UserMapper;
@@ -22,6 +23,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     public Mono<User> findById(Long userId) {
         log.info("Invoking UserRepositoryAdapter.findById method");
         return this.userRepository.findById(userId)
+                .switchIfEmpty(Mono.error(new UserNotFoundException(String.format("User not found with id: %d", userId))))
                 .map(this.mapper::mapOutUserEntityToUser);
     }
 
@@ -37,6 +39,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     public Mono<User> updateUser(Long userId, User user) {
         log.info("Invoking UserRepositoryAdapter.updateUser method");
         return this.userRepository.findById(userId)
+                .switchIfEmpty(Mono.error(new UserNotFoundException(String.format("User not found with id: %d", userId))))
                 .map(userEntity -> MapperUtils.loadUserToUserEntity(user, userEntity))
                 .flatMap(this.userRepository::save)
                 .map(this.mapper::mapOutUserEntityToUser);
@@ -46,6 +49,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     public Mono<Void> deleteUser(Long userId) {
         log.info("Invoking UserRepositoryAdapter.deleteUser method");
         return this.userRepository.findById(userId)
+                .switchIfEmpty(Mono.error(new UserNotFoundException(String.format("User not found with id: %d", userId))))
                 .flatMap(this.userRepository::delete);
     }
 

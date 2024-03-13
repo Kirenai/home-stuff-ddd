@@ -1,6 +1,7 @@
 package me.kirenai.re.validation.exception.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
@@ -23,7 +24,7 @@ import java.util.Optional;
 @Order(-2)
 public class CustomErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
 
-    public CustomErrorWebExceptionHandler(ErrorAttributes errorAttributes, WebProperties resources,
+    public CustomErrorWebExceptionHandler(@Qualifier("customErrorAttributes") ErrorAttributes errorAttributes, WebProperties resources,
                                           ApplicationContext applicationContext, ServerCodecConfigurer codecConfigure) {
         super(errorAttributes, resources.getResources(), applicationContext);
         super.setMessageReaders(codecConfigure.getReaders());
