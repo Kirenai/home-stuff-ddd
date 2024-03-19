@@ -1,4 +1,4 @@
-package me.kirenai.re.user.infrastructure.rest.handler.error;
+package me.kirenai.re.nourishment.infrastructure.rest.handler.error;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,11 +24,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Slf4j
 @Component
 @Order(-2)
-public class UserErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
+public class NourishmentErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
 
 
-    public UserErrorWebExceptionHandler(@Qualifier("userErrorAttributes") ErrorAttributes errorAttributes, WebProperties webProperties,
-                                        ApplicationContext applicationContext, ServerCodecConfigurer codecConfigurer) {
+    public NourishmentErrorWebExceptionHandler(@Qualifier("nourishmentErrorAttributes") ErrorAttributes errorAttributes, WebProperties webProperties,
+                                               ApplicationContext applicationContext, ServerCodecConfigurer codecConfigurer) {
         super(errorAttributes, webProperties.getResources(), applicationContext);
         super.setMessageReaders(codecConfigurer.getReaders());
         super.setMessageWriters(codecConfigurer.getWriters());
@@ -43,7 +43,7 @@ public class UserErrorWebExceptionHandler extends AbstractErrorWebExceptionHandl
     }
 
     private Mono<ServerResponse> renderErrorResponse(ServerRequest serverRequest) {
-        log.info("Invoking UserErrorWebExceptionHandler#renderErrorResponse(.) method");
+        log.info("Invoking NourishmentErrorWebExceptionHandler#renderErrorResponse(.) method");
         Map<String, Object> errorMap = super.getErrorAttributes(serverRequest, ErrorAttributeOptions.defaults());
         HttpStatus status = (HttpStatus) Optional.ofNullable(errorMap.get("status")).orElse(INTERNAL_SERVER_ERROR);
         return ServerResponse

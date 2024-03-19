@@ -1,4 +1,4 @@
-package me.kirenai.re.user.infrastructure.rest.handler.error;
+package me.kirenai.re.role.infrastructure.rest.handler.error;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,17 +17,18 @@ import reactor.core.publisher.Mono;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Slf4j
 @Component
 @Order(-2)
-public class UserErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
+public class RoleErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
 
 
-    public UserErrorWebExceptionHandler(@Qualifier("userErrorAttributes") ErrorAttributes errorAttributes, WebProperties webProperties,
+    public RoleErrorWebExceptionHandler(@Qualifier("roleErrorAttributes") ErrorAttributes errorAttributes, WebProperties webProperties,
                                         ApplicationContext applicationContext, ServerCodecConfigurer codecConfigurer) {
         super(errorAttributes, webProperties.getResources(), applicationContext);
         super.setMessageReaders(codecConfigurer.getReaders());
@@ -37,13 +38,13 @@ public class UserErrorWebExceptionHandler extends AbstractErrorWebExceptionHandl
     @Override
     protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
         return RouterFunctions.route(
-                RequestPredicates.methods(GET, PUT, DELETE),
+                RequestPredicates.methods(GET, PUT),
                 this::renderErrorResponse
         );
     }
 
     private Mono<ServerResponse> renderErrorResponse(ServerRequest serverRequest) {
-        log.info("Invoking UserErrorWebExceptionHandler#renderErrorResponse(.) method");
+        log.info("Invoking RoleErrorWebExceptionHandler#renderErrorResponse(.) method");
         Map<String, Object> errorMap = super.getErrorAttributes(serverRequest, ErrorAttributeOptions.defaults());
         HttpStatus status = (HttpStatus) Optional.ofNullable(errorMap.get("status")).orElse(INTERNAL_SERVER_ERROR);
         return ServerResponse

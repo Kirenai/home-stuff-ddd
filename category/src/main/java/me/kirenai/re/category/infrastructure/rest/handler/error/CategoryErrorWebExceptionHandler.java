@@ -1,4 +1,4 @@
-package me.kirenai.re.user.infrastructure.rest.handler.error;
+package me.kirenai.re.category.infrastructure.rest.handler.error;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,24 +11,30 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.server.*;
+import org.springframework.web.reactive.function.server.RequestPredicates;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
 import java.util.Optional;
 
-import static org.springframework.http.HttpMethod.*;
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Slf4j
 @Component
 @Order(-2)
-public class UserErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
+public class CategoryErrorWebExceptionHandler extends AbstractErrorWebExceptionHandler {
 
 
-    public UserErrorWebExceptionHandler(@Qualifier("userErrorAttributes") ErrorAttributes errorAttributes, WebProperties webProperties,
-                                        ApplicationContext applicationContext, ServerCodecConfigurer codecConfigurer) {
+    public CategoryErrorWebExceptionHandler(@Qualifier("categoryErrorAttributes") ErrorAttributes errorAttributes, WebProperties webProperties,
+                                            ApplicationContext applicationContext, ServerCodecConfigurer codecConfigurer) {
         super(errorAttributes, webProperties.getResources(), applicationContext);
         super.setMessageReaders(codecConfigurer.getReaders());
         super.setMessageWriters(codecConfigurer.getWriters());
@@ -43,7 +49,7 @@ public class UserErrorWebExceptionHandler extends AbstractErrorWebExceptionHandl
     }
 
     private Mono<ServerResponse> renderErrorResponse(ServerRequest serverRequest) {
-        log.info("Invoking UserErrorWebExceptionHandler#renderErrorResponse(.) method");
+        log.info("Invoking RoleErrorWebExceptionHandler#renderErrorResponse(.) method");
         Map<String, Object> errorMap = super.getErrorAttributes(serverRequest, ErrorAttributeOptions.defaults());
         HttpStatus status = (HttpStatus) Optional.ofNullable(errorMap.get("status")).orElse(INTERNAL_SERVER_ERROR);
         return ServerResponse

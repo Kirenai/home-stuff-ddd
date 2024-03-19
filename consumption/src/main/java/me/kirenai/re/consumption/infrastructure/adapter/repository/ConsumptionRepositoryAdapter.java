@@ -1,6 +1,7 @@
 package me.kirenai.re.consumption.infrastructure.adapter.repository;
 
 import lombok.RequiredArgsConstructor;
+import me.kirenai.re.consumption.domain.exception.ConsumptionNotFoundException;
 import me.kirenai.re.consumption.domain.model.Consumption;
 import me.kirenai.re.consumption.domain.port.out.repository.ConsumptionRepositoryPort;
 import me.kirenai.re.consumption.infrastructure.mapper.ConsumptionMapper;
@@ -18,6 +19,7 @@ public class ConsumptionRepositoryAdapter implements ConsumptionRepositoryPort {
     @Override
     public Mono<Consumption> findById(Long consumptionId) {
         return this.consumptionRepository.findById(consumptionId)
+                .switchIfEmpty(Mono.error(new ConsumptionNotFoundException(String.format("Consumption not found with id: %d", consumptionId))))
                 .map(this.mapper::mapOutConsumptionEntityToConsumption);
     }
 

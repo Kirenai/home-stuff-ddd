@@ -1,6 +1,7 @@
 package me.kirenai.re.nourishment.infrastructure.adapter.repository;
 
 import lombok.RequiredArgsConstructor;
+import me.kirenai.re.nourishment.domain.exception.NourishmentNotFoundException;
 import me.kirenai.re.nourishment.domain.model.Nourishment;
 import me.kirenai.re.nourishment.domain.port.out.repository.NourishmentRepositoryPort;
 import me.kirenai.re.nourishment.infrastructure.mapper.NourishmentMapper;
@@ -32,6 +33,7 @@ public class NourishmentRepositoryAdapter implements NourishmentRepositoryPort {
     @Override
     public Mono<Nourishment> findById(Long nourishmentId) {
         return this.nourishmentRepository.findById(nourishmentId)
+                .switchIfEmpty(Mono.error(new NourishmentNotFoundException(String.format("Nourishment not found by id: %d", nourishmentId))))
                 .map(this.mapper::mapOutNourishmentEntityToNourishment);
     }
 
@@ -45,6 +47,7 @@ public class NourishmentRepositoryAdapter implements NourishmentRepositoryPort {
     @Override
     public Mono<Nourishment> updateNourishment(Long nourishmentId, Nourishment nourishment) {
         return this.nourishmentRepository.findById(nourishmentId)
+                .switchIfEmpty(Mono.error(new NourishmentNotFoundException(String.format("Nourishment not found by id: %d", nourishmentId))))
                 .map(nourishmentEntity -> MapperUtils.loadNourishmentToNourishmentEntityByReference(nourishment, nourishmentEntity))
                 .map(this.mapper::mapOutNourishmentEntityToNourishment);
     }
@@ -52,6 +55,7 @@ public class NourishmentRepositoryAdapter implements NourishmentRepositoryPort {
     @Override
     public Mono<Void> deleteNourishment(Long nourishmentId) {
         return this.nourishmentRepository.findById(nourishmentId)
+                .switchIfEmpty(Mono.error(new NourishmentNotFoundException(String.format("Nourishment not found by id: %d", nourishmentId))))
                 .flatMap(this.nourishmentRepository::delete);
     }
 

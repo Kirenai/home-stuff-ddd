@@ -1,6 +1,7 @@
 package me.kirenai.re.category.infrastructure.adapter;
 
 import lombok.RequiredArgsConstructor;
+import me.kirenai.re.category.domain.exception.CategoryNotFoundException;
 import me.kirenai.re.category.domain.model.Category;
 import me.kirenai.re.category.domain.port.out.CategoryRepositoryPort;
 import me.kirenai.re.category.infrastructure.mapper.CategoryMapper;
@@ -19,6 +20,7 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
     @Override
     public Mono<Category> findById(Long categoryId) {
         return this.categoryRepository.findById(categoryId)
+                .switchIfEmpty(Mono.error(new CategoryNotFoundException(String.format("Category not found with id: %d", categoryId))))
                 .map(this.mapper::mapOutCategoryEntityToCategory);
     }
 

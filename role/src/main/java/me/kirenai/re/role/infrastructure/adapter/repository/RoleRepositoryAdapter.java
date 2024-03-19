@@ -1,6 +1,7 @@
 package me.kirenai.re.role.infrastructure.adapter.repository;
 
 import lombok.RequiredArgsConstructor;
+import me.kirenai.re.role.domain.exception.RoleNotFoundException;
 import me.kirenai.re.role.domain.model.Role;
 import me.kirenai.re.role.domain.port.out.repository.RoleRepositoryPort;
 import me.kirenai.re.role.infrastructure.mapper.RoleMapper;
@@ -19,12 +20,14 @@ public class RoleRepositoryAdapter implements RoleRepositoryPort {
     @Override
     public Mono<Role> findById(Long roleId) {
         return this.roleRepository.findById(roleId)
+                .switchIfEmpty(Mono.error(new RoleNotFoundException(String.format("Role not found by id: %d", roleId))))
                 .map(this.mapper::mapOutRoleEntityToRole);
     }
 
     @Override
     public Mono<Role> findByName(String name) {
         return this.roleRepository.findByName(name)
+                .switchIfEmpty(Mono.error(new RoleNotFoundException(String.format("Role not found by name: %s", name))))
                 .map(this.mapper::mapOutRoleEntityToRole);
     }
 
@@ -38,6 +41,7 @@ public class RoleRepositoryAdapter implements RoleRepositoryPort {
     @Override
     public Mono<Role> updateRole(Long roleId, Role role) {
         return this.roleRepository.findById(roleId)
+                .switchIfEmpty(Mono.error(new RoleNotFoundException(String.format("Role not found by id: %d", roleId))))
                 .map(roleEntity -> MapperUtils.loadRoleToRoleEntityByReference(role, roleEntity))
                 .flatMap(this.roleRepository::save)
                 .map(this.mapper::mapOutRoleEntityToRole);
