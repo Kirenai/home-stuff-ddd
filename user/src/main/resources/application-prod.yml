@@ -1,6 +1,8 @@
 server:
   port: 8081
 spring:
+  webflux:
+    base-path: /api/v0
   r2dbc:
     url: r2dbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/hs_user
     username: ${MYSQL_USERNAME:root}

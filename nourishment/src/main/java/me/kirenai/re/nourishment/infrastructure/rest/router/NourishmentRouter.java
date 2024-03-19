@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 @Configuration
 public class NourishmentRouter {
 
-    public final String URL = "/api/v0/nourishments";
+    public final String URL = "/nourishments";
 
     @Bean
     public RouterFunction<ServerResponse> route(NourishmentHandler nourishmentHandler) {

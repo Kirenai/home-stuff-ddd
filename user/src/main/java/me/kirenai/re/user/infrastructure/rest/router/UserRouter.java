@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 @Configuration
 public class UserRouter {
 
-    private static final String PATH = "/api/v0/users";
+    private static final String PATH = "/users";
 
     @Bean
     public RouterFunction<ServerResponse> router(UserHandler userHandler) {

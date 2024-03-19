@@ -10,7 +10,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 @Configuration
 public class RoleRouter {
 
-    private static final String URL = "/api/v0/roles";
+    private static final String URL = "/roles";
 
     @Bean
     public RouterFunction<ServerResponse> router(RoleHandler roleHandler) {
