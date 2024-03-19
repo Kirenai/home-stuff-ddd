@@ -8,8 +8,8 @@ public interface ListNourishmentsPort {
 
     Flux<Nourishment> getNourishments(Pageable pageable);
 
-    Flux<Nourishment> getNourishmentsByIsAvailable(Boolean isAvailable);
+    Flux<Nourishment> getNourishmentsByIsAvailable(Boolean isAvailable, Pageable pageable);
 
-    Flux<Nourishment> getNourishmentsByUserId(Long userId);
+    Flux<Nourishment> getNourishmentsByUserId(Long userId, Pageable pageable);
 
 }

@@ -3,10 +3,15 @@ package me.kirenai.re.nourishment.application.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.nourishment.domain.model.Nourishment;
-import me.kirenai.re.nourishment.domain.port.in.*;
+import me.kirenai.re.nourishment.domain.port.in.CreateNourishmentPort;
+import me.kirenai.re.nourishment.domain.port.in.DeleteNourishmentPort;
+import me.kirenai.re.nourishment.domain.port.in.GetNourishmentPort;
+import me.kirenai.re.nourishment.domain.port.in.ListNourishmentsPort;
+import me.kirenai.re.nourishment.domain.port.in.UpdateNourishmentPort;
 import me.kirenai.re.nourishment.domain.port.out.client.CategoryClientPort;
 import me.kirenai.re.nourishment.domain.port.out.client.UserClientPort;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -32,14 +37,14 @@ public class NourishmentService {
         return this.getNourishmentPort.findById(nourishmentId);
     }
 
-    public Flux<Nourishment> getNourishmentsByUserId(Long userId) {
+    public Flux<Nourishment> getNourishmentsByUserId(Long userId, Pageable pageable) {
         log.info("Invoking NourishmentService.getNourishmentsByUserId method");
-        return this.listNourishmentsPort.getNourishmentsByUserId(userId);
+        return this.listNourishmentsPort.getNourishmentsByUserId(userId, pageable);
     }
 
-    public Flux<Nourishment> getNourishmentsByIsAvailable(Boolean isAvailable) {
+    public Flux<Nourishment> getNourishmentsByIsAvailable(Boolean isAvailable, Pageable pageable) {
         log.info("Invoking NourishmentService.getNourishmentsByIsAvailable method");
-        return this.listNourishmentsPort.getNourishmentsByIsAvailable(isAvailable);
+        return this.listNourishmentsPort.getNourishmentsByIsAvailable(isAvailable, pageable);
     }
 
     public Mono<Nourishment> createNourishment(Long userId, Long categoryId, Nourishment nourishment) {

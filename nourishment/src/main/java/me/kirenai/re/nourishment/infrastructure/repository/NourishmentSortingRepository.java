@@ -9,4 +9,8 @@ public interface NourishmentSortingRepository extends ReactiveSortingRepository<
 
     Flux<NourishmentEntity> findAllBy(Pageable pageable);
 
+    Flux<NourishmentEntity> findAllByIsAvailable(Boolean isAvailable, Pageable pageable);
+
+    Flux<NourishmentEntity> findAllByUserId(Long userId, Pageable pageable);
+
 }

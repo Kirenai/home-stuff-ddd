@@ -19,7 +19,7 @@ public class ApplicationConfig {
                                                  CategoryClientPort categoryClientPort) {
         return new NourishmentService(
                 new GetNourishmentUseCase(nourishmentRepositoryPort),
-                new ListNourishmentsUseCase(nourishmentRepositoryPort, nourishmentSortingRepositoryPort),
+                new ListNourishmentsUseCase(nourishmentSortingRepositoryPort),
                 new CreateNourishmentUseCase(nourishmentRepositoryPort),
                 new UpdateNourishmentUseCase(nourishmentRepositoryPort),
                 new DeleteNourishmentUseCase(nourishmentRepositoryPort),

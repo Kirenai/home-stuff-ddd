@@ -48,8 +48,12 @@ public class NourishmentHandler {
 
     public Mono<ServerResponse> findAllByUserId(ServerRequest request) {
         log.info("Invoking NourishmentHandler.findAllByUserId method");
+        int page = Integer.parseInt(request.queryParam("page").orElse("0"));
+        int size = Integer.parseInt(request.queryParam("size").orElse("3"));
+        String[] sort = request.queryParam("sort").orElse("nourishmentId,ASC").split(",");
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(sort[1]), sort[0]));
         String userId = request.pathVariable("userId");
-        Flux<ListNourishmentsResponse> response = this.nourishmentService.getNourishmentsByUserId(Long.valueOf(userId))
+        Flux<ListNourishmentsResponse> response = this.nourishmentService.getNourishmentsByUserId(Long.valueOf(userId), pageable)
                 .flatMap(this.mapper::mapOutNourishmentToListNourishmentsResponse);
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(response, ListNourishmentsResponse.class);
     }
@@ -57,7 +61,11 @@ public class NourishmentHandler {
     public Mono<ServerResponse> findAllByIsAvailable(ServerRequest request) {
         log.info("Invoking NourishmentHandler.findAllByIsAvailable method");
         String isAvailable = request.pathVariable("isAvailable");
-        Flux<ListNourishmentsResponse> response = this.nourishmentService.getNourishmentsByIsAvailable(Boolean.valueOf(isAvailable))
+        int page = Integer.parseInt(request.queryParam("page").orElse("0"));
+        int size = Integer.parseInt(request.queryParam("size").orElse("4"));
+        String[] sort = request.queryParam("sort").orElse("nourishmentId,ASC").split(",");
+        PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(sort[1]), sort[0]));
+        Flux<ListNourishmentsResponse> response = this.nourishmentService.getNourishmentsByIsAvailable(Boolean.valueOf(isAvailable), pageable)
                 .flatMap(this.mapper::mapOutNourishmentToListNourishmentsResponse);
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(response, ListNourishmentsResponse.class);
     }

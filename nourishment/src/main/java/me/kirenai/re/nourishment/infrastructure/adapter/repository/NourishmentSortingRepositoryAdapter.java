@@ -22,4 +22,16 @@ public class NourishmentSortingRepositoryAdapter implements NourishmentSortingRe
                 .map(this.mapper::mapOutNourishmentEntityToNourishment);
     }
 
+    @Override
+    public Flux<Nourishment> findAllByIsAvailable(Boolean isAvailable, Pageable pageable) {
+        return this.nourishmentSortingRepository.findAllByIsAvailable(isAvailable, pageable)
+                .map(this.mapper::mapOutNourishmentEntityToNourishment);
+    }
+
+    @Override
+    public Flux<Nourishment> findAllByUserId(Long userId, Pageable pageable) {
+        return this.nourishmentSortingRepository.findAllByUserId(userId, pageable)
+                .map(this.mapper::mapOutNourishmentEntityToNourishment);
+    }
+
 }

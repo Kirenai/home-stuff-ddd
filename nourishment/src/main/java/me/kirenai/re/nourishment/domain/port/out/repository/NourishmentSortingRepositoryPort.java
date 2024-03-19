@@ -8,4 +8,8 @@ public interface NourishmentSortingRepositoryPort {
 
     Flux<Nourishment> findAll(Pageable pageable);
 
+    Flux<Nourishment> findAllByIsAvailable(Boolean isAvailable, Pageable pageable);
+
+    Flux<Nourishment> findAllByUserId(Long userId, Pageable pageable);
+
 }
