@@ -25,9 +25,9 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring-boot.version>3.2.2</spring-boot.version>
-        <spring-cloud.version>2023.0.0</spring-cloud.version>
-        <spring.boot.maven.plugin.version>3.2.2</spring.boot.maven.plugin.version>
+        <spring-boot.version>3.3.2</spring-boot.version>
+        <spring.boot.maven.plugin.version>3.3.2</spring.boot.maven.plugin.version>
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
         <maven.surefire.version>3.0.0-M8</maven.surefire.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
         <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
