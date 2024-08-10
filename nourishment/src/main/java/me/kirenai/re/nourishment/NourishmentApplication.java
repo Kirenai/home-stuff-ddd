@@ -2,7 +2,6 @@ package me.kirenai.re.nourishment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @SpringBootApplication(
         scanBasePackages = {
@@ -10,7 +9,6 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
                 "me.kirenai.re.validation"
         }
 )
-@EnableR2dbcRepositories(basePackages = "me.kirenai.re.nourishment.infrastructure.repository.r2dbc")
 public class NourishmentApplication {
 
     public static void main(String[] args) {
