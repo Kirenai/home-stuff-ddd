@@ -1,4 +1,4 @@
-package me.kirenai.re.gateway.infrastructure.config;
+package me.kirenai.re.gateway.config;
 
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
