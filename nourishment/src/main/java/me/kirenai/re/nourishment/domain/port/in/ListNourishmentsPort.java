@@ -10,6 +10,6 @@ public interface ListNourishmentsPort {
 
     Flux<Nourishment> getNourishmentsByIsAvailable(Boolean isAvailable, Pageable pageable);
 
-    Flux<Nourishment> getNourishmentsByUserId(Long userId, Pageable pageable);
+    Flux<Nourishment> getNourishmentsByUserId(String userId, Pageable pageable);
 
 }

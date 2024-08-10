@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface GetNourishmentPort {
 
-    Mono<Nourishment> findById(Long nourishmentId);
+    Mono<Nourishment> findById(String nourishmentId);
 
 }

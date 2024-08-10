@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Builder;
-import me.kirenai.re.nourishment.util.enums.NourishmentTypeEnum;
+import me.kirenai.re.nourishment.domain.enums.NourishmentTypeEnum;
 
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)

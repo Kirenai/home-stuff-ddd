@@ -12,7 +12,7 @@ public class GetNourishmentUseCase implements GetNourishmentPort {
     private final NourishmentRepositoryPort nourishmentRepositoryPort;
 
     @Override
-    public Mono<Nourishment> findById(Long nourishmentId) {
+    public Mono<Nourishment> findById(String nourishmentId) {
         return this.nourishmentRepositoryPort.findById(nourishmentId);
     }
 

@@ -23,7 +23,7 @@ public class ListNourishmentsUseCase implements ListNourishmentsPort {
     }
 
     @Override
-    public Flux<Nourishment> getNourishmentsByUserId(Long userId, Pageable pageable) {
+    public Flux<Nourishment> getNourishmentsByUserId(String userId, Pageable pageable) {
         return this.nourishmentSortingRepositoryPort.findAllByUserId(userId, pageable);
     }
 

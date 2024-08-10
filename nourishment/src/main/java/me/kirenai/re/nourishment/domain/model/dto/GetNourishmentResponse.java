@@ -1,6 +1,10 @@
 package me.kirenai.re.nourishment.domain.model.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -9,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 public class GetNourishmentResponse {
 
-    private Long nourishmentId;
+    private String nourishmentId;
     private String name;
     private String imageUrl;
     private String description;

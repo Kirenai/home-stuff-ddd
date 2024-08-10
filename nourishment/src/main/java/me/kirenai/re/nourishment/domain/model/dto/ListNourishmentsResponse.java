@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class ListNourishmentsResponse {
 
-    private Long nourishmentId;
+    private String nourishmentId;
     private String name;
     private String imageUrl;
     private String description;

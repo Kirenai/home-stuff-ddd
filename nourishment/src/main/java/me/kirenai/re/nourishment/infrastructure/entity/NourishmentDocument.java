@@ -1,10 +1,14 @@
-package me.kirenai.re.nourishment.domain.model;
+package me.kirenai.re.nourishment.infrastructure.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.kirenai.re.nourishment.domain.model.NourishmentType;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Nourishment
@@ -14,17 +18,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class Nourishment {
+@Document(collection = "nourishments")
+public class NourishmentDocument {
 
+    @Id
     private String nourishmentId;
     private String name;
     private String imageUrl;
     private String description;
     private Boolean isAvailable;
     private NourishmentType nourishmentType;
-    private Long userId;
-    private Long categoryId;
+    private String userId;
+    private String categoryId;
 
 }

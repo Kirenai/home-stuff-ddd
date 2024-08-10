@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface UpdateNourishmentPort {
 
-    Mono<Nourishment> updateNourishment(Long nourishmentId, Nourishment nourishment);
+    Mono<Nourishment> updateNourishment(String nourishmentId, Nourishment nourishment);
 
 }

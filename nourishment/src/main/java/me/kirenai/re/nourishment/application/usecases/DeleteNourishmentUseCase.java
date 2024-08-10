@@ -11,7 +11,7 @@ public class DeleteNourishmentUseCase implements DeleteNourishmentPort {
     private final NourishmentRepositoryPort nourishmentRepositoryPort;
 
     @Override
-    public Mono<Void> deleteNourishment(Long nourishmentId) {
+    public Mono<Void> deleteNourishment(String nourishmentId) {
         return this.nourishmentRepositoryPort.deleteNourishment(nourishmentId);
     }
 

@@ -3,6 +3,7 @@ package me.kirenai.re.nourishment.infrastructure.rest.handler.error;
 import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.nourishment.domain.exception.NourishmentNotFoundException;
 import me.kirenai.re.nourishment.domain.exception.NourishmentTypeNotFoundException;
+import me.kirenai.re.validation.exception.ValidatorException;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,6 @@ public class NourishmentErrorAttributes extends DefaultErrorAttributes {
         Map<String, Object> errorAttributes = new LinkedHashMap<>();
         Throwable throwable = super.getError(serverRequest);
 
-
         if (throwable instanceof NourishmentNotFoundException exception) {
             log.error("An error of type NourishmentNotFoundException occurs");
             errorAttributes.put("error", exception.createError(serverRequest));
@@ -31,6 +31,10 @@ public class NourishmentErrorAttributes extends DefaultErrorAttributes {
             log.error("An error of type NourishmentTypeNotFoundException occurs");
             errorAttributes.put("error", exception.createError(serverRequest));
             errorAttributes.put("status", HttpStatus.NOT_FOUND);
+        } else if (throwable instanceof ValidatorException exception) {
+            log.error("An error of type ValidatorException occurs");
+            errorAttributes.put("error", exception.createError());
+            errorAttributes.put("status", HttpStatus.BAD_REQUEST);
         }
 
         return errorAttributes;

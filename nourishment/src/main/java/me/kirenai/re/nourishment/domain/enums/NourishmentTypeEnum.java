@@ -1,4 +1,4 @@
-package me.kirenai.re.nourishment.util.enums;
+package me.kirenai.re.nourishment.domain.enums;
 
 import lombok.Getter;
 

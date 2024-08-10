@@ -12,7 +12,7 @@ public class UpdateNourishmentUseCase implements UpdateNourishmentPort {
     private final NourishmentRepositoryPort nourishmentRepositoryPort;
 
     @Override
-    public Mono<Nourishment> updateNourishment(Long nourishmentId, Nourishment nourishment) {
+    public Mono<Nourishment> updateNourishment(String nourishmentId, Nourishment nourishment) {
         return this.nourishmentRepositoryPort.updateNourishment(nourishmentId, nourishment);
     }
 
