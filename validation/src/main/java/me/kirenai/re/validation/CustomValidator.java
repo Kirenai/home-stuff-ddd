@@ -27,6 +27,7 @@ public class CustomValidator implements Validator {
                     .stream()
                     .map(ErrorResponse::new)
                     .toList();
+            log.info("Error responses: {}", errorResponses);
             throw new ValidatorException(errorResponses);
         }
     }
