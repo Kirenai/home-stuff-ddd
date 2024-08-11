@@ -1,10 +1,15 @@
-package me.kirenai.re.consumption.util;
+package me.kirenai.re.consumption.domain.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.kirenai.re.consumption.domain.enums.NourishmentTypeEnum;
 import me.kirenai.re.consumption.domain.model.Consumption;
-import me.kirenai.re.consumption.domain.model.dto.*;
-import me.kirenai.re.consumption.util.enums.NourishmentTypeEnum;
+import me.kirenai.re.consumption.domain.model.dto.GetNourishmentResponse;
+import me.kirenai.re.consumption.domain.model.dto.GetNourishmentTypePercentageResponse;
+import me.kirenai.re.consumption.domain.model.dto.GetNourishmentTypeUnitResponse;
+import me.kirenai.re.consumption.domain.model.dto.UpdateNourishmentRequest;
+import me.kirenai.re.consumption.domain.model.dto.UpdateNourishmentTypePercentageRequest;
+import me.kirenai.re.consumption.domain.model.dto.UpdateNourishmentTypeUnitRequest;
 
 import java.util.Objects;
 
@@ -34,7 +39,8 @@ public class ConsumptionProcess {
         } else if (Objects.nonNull(this.consumption.getPercentage())) {
             log.info("Percentage: {}", this.consumption.getPercentage());
             GetNourishmentTypePercentageResponse typePercentageResponse = (GetNourishmentTypePercentageResponse) nourishmentResponse.type();
-            if (this.consumption.getPercentage() > typePercentageResponse.percentage()) {
+            int intPercentage = (int) (typePercentageResponse.percentage() * 100);
+            if (this.consumption.getPercentage() >  intPercentage) {
                 log.error("Percentage exceeded c.percentage={} is greater than nr.percentage={}",
                         this.consumption.getPercentage(), typePercentageResponse.percentage());
                 throw new IllegalStateException("percentage exceeded");
@@ -42,10 +48,13 @@ public class ConsumptionProcess {
             UpdateNourishmentTypePercentageRequest updateNourishmentTypePercentageRequest = UpdateNourishmentTypePercentageRequest
                     .builder()
                     .nourishmentType(NourishmentTypeEnum.PERCENTAGE)
-                    .percentage(typePercentageResponse.percentage() - this.consumption.getPercentage())
+                    .percentage(intPercentage - this.consumption.getPercentage())
                     .build();
             builder.type(updateNourishmentTypePercentageRequest);
         }
+        builder.name(nourishmentResponse.name());
+        builder.imageUrl(nourishmentResponse.imageUrl());
+        builder.description(nourishmentResponse.description());
 
         return builder.build();
     }

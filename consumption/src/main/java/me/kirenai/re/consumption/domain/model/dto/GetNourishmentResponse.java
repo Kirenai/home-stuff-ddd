@@ -1,7 +1,11 @@
 package me.kirenai.re.consumption.domain.model.dto;
 
 public record GetNourishmentResponse(
-        Long nourishmentId,
+        String nourishmentId,
+        String name,
+        String imageUrl,
+        String description,
+        Boolean isAvailable,
         GetNourishmentTypeResponse type
 ) {
 }

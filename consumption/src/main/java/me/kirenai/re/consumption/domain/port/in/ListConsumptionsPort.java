@@ -6,6 +6,6 @@ import reactor.core.publisher.Flux;
 
 public interface ListConsumptionsPort {
 
-    Flux<Consumption> getConsumptions(Pageable pageable);
+    Flux<Consumption> execute(Pageable pageable);
 
 }

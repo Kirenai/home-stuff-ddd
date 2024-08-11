@@ -8,6 +8,9 @@ import lombok.Builder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record UpdateNourishmentRequest(
+        String name,
+        String imageUrl,
+        String description,
         UpdateNourishmentTypeRequest type
 ) {
 }

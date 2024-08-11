@@ -12,7 +12,7 @@ public class GetConsumptionUseCase implements GetConsumptionPort {
     private final ConsumptionRepositoryPort consumptionRepositoryPort;
 
     @Override
-    public Mono<Consumption> getConsumptionById(Long consumptionId) {
+    public Mono<Consumption> execute(String consumptionId) {
         return this.consumptionRepositoryPort.findById(consumptionId);
     }
 

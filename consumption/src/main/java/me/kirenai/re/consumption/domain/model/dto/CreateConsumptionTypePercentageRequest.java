@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
-import me.kirenai.re.consumption.util.enums.ConsumptionTypeEnum;
+import me.kirenai.re.consumption.domain.enums.ConsumptionTypeEnum;
 
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)

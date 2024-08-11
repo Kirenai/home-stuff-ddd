@@ -1,8 +1,12 @@
 package me.kirenai.re.consumption.infrastructure.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Consumption
@@ -14,14 +18,14 @@ import org.springframework.data.relational.core.mapping.Table;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-@Table(name = "consumptions")
+@Document(collection = "consumptions")
 public class ConsumptionEntity {
 
     @Id
-    private Long consumptionId;
+    private String consumptionId;
     private Integer unit;
-    private Integer percentage;
-    private Long nourishmentId;
-    private Long userId;
+    private Double percentage;
+    private String nourishmentId;
+    private String userId;
 
 }

@@ -13,7 +13,7 @@ public class ListConsumptionsUseCase implements ListConsumptionsPort {
     private final ConsumptionSortingRepositoryPort consumptionSortingRepositoryPort;
 
     @Override
-    public Flux<Consumption> getConsumptions(Pageable pageable) {
+    public Flux<Consumption> execute(Pageable pageable) {
         return this.consumptionSortingRepositoryPort.findAll(pageable);
     }
 

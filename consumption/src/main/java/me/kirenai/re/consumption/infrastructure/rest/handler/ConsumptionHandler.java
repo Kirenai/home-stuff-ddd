@@ -43,7 +43,7 @@ public class ConsumptionHandler {
     public Mono<ServerResponse> findById(ServerRequest request) {
         log.info("Invoking ConsumptionHandler.findById method");
         String consumptionId = request.pathVariable("consumptionId");
-        return this.consumptionService.getConsumptionById(Long.valueOf(consumptionId))
+        return this.consumptionService.getConsumptionById(consumptionId)
                 .map(this.mapper::mapOutConsumptionToGetConsumptionResponse)
                 .flatMap(consumptionResponse -> ok()
                         .contentType(APPLICATION_JSON)
@@ -52,16 +52,12 @@ public class ConsumptionHandler {
 
     public Mono<ServerResponse> create(ServerRequest request) {
         log.info("Invoking ConsumptionHandler.create method");
-        String userId = request.pathVariable("userId");
+        String email = request.pathVariable("email");
         String nourishmentId = request.pathVariable("nourishmentId");
         return request.bodyToMono(CreateConsumptionRequest.class)
                 .doOnNext(this.validator::validate)
                 .map(this.mapper::mapInCreateConsumptionRequestToConsumption)
-                .flatMap(consumption -> this.consumptionService.createConsumption(
-                        Long.valueOf(userId),
-                        Long.valueOf(nourishmentId),
-                        consumption
-                ))
+                .flatMap(consumption -> this.consumptionService.createConsumption(email, nourishmentId, consumption))
                 .map(this.mapper::mapOutConsumptionToCreateConsumptionResponse)
                 .flatMap(consumptionResponse -> status(HttpStatus.CREATED)
                         .contentType(APPLICATION_JSON)

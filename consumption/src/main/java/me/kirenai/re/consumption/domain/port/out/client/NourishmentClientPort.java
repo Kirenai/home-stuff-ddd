@@ -6,8 +6,8 @@ import reactor.core.publisher.Mono;
 
 public interface NourishmentClientPort {
 
-    Mono<GetNourishmentResponse> getNourishmentByNourishmentId(Long nourishmentId);
+    Mono<GetNourishmentResponse> getNourishmentByNourishmentId(String nourishmentId);
 
-    Mono<Void> updateNourishment(Long nourishmentId, UpdateNourishmentRequest updateNourishmentRequest);
+    Mono<Void> updateNourishment(String nourishmentId, UpdateNourishmentRequest updateNourishmentRequest);
 
 }

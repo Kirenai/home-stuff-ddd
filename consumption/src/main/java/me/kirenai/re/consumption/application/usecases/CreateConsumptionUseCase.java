@@ -12,7 +12,7 @@ public class CreateConsumptionUseCase implements CreateConsumptionPort {
     private final ConsumptionRepositoryPort consumptionRepositoryPort;
 
     @Override
-    public Mono<Consumption> createConsumption(Consumption consumption) {
+    public Mono<Consumption> execute(Consumption consumption) {
         return this.consumptionRepositoryPort.createConsumption(consumption);
     }
 

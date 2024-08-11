@@ -18,7 +18,7 @@ public class ConsumptionRouter {
         return route()
                 .GET(PATH, consumptionHandler::findAll)
                 .GET(PATH + "/{consumptionId}", consumptionHandler::findById)
-                .POST(PATH + "/user/{userId}/nourishment/{nourishmentId}", consumptionHandler::create)
+                .POST(PATH + "/user/{email}/nourishment/{nourishmentId}", consumptionHandler::create)
                 .build();
     }
 

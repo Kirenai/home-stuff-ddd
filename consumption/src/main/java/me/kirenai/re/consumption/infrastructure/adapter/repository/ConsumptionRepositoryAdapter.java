@@ -17,7 +17,7 @@ public class ConsumptionRepositoryAdapter implements ConsumptionRepositoryPort {
     private final ConsumptionMapper mapper;
 
     @Override
-    public Mono<Consumption> findById(Long consumptionId) {
+    public Mono<Consumption> findById(String consumptionId) {
         return this.consumptionRepository.findById(consumptionId)
                 .switchIfEmpty(Mono.error(new ConsumptionNotFoundException(String.format("Consumption not found with id: %d", consumptionId))))
                 .map(this.mapper::mapOutConsumptionEntityToConsumption);

@@ -9,10 +9,10 @@ import lombok.*;
 @AllArgsConstructor
 public class Consumption {
 
-    private Long consumptionId;
+    private String consumptionId;
     private Integer unit;
     private Integer percentage;
-    private Long nourishmentId;
-    private Long userId;
+    private String nourishmentId;
+    private String userId;
 
 }

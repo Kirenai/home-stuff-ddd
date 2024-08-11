@@ -2,7 +2,7 @@ package me.kirenai.re.consumption.infrastructure.repository;
 
 import me.kirenai.re.consumption.infrastructure.entity.ConsumptionEntity;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.reactive.ReactiveSortingRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import reactor.core.publisher.Flux;
 
 /**
@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
  *
  * @author Kirenai
  */
-public interface ConsumptionSortingRepository extends ReactiveSortingRepository<ConsumptionEntity, Long> {
+public interface ConsumptionSortingRepository extends ReactiveMongoRepository<ConsumptionEntity, String> {
 
     Flux<ConsumptionEntity> findAllBy(Pageable pageable);
 

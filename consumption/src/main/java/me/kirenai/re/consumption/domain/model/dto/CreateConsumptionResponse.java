@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record CreateConsumptionResponse(
-        Long consumptionId,
+        String consumptionId,
         Integer unit,
         Integer percentage
 ) {

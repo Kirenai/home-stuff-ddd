@@ -5,7 +5,7 @@ import reactor.core.publisher.Mono;
 
 public interface ConsumptionRepositoryPort {
 
-    Mono<Consumption> findById(Long consumptionId);
+    Mono<Consumption> findById(String consumptionId);
 
     Mono<Consumption> createConsumption(Consumption consumption);
 

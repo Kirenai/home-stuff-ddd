@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface CreateConsumptionPort {
 
-    Mono<Consumption> createConsumption(Consumption consumption);
+    Mono<Consumption> execute(Consumption consumption);
 
 }

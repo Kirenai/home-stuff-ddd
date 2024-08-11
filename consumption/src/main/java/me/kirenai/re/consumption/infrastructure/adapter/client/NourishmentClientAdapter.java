@@ -20,7 +20,7 @@ public class NourishmentClientAdapter implements NourishmentClientPort {
     private final WebClient webClient;
 
     @Override
-    public Mono<GetNourishmentResponse> getNourishmentByNourishmentId(Long nourishmentId) {
+    public Mono<GetNourishmentResponse> getNourishmentByNourishmentId(String nourishmentId) {
         log.info("Invoking NourishmentClientAdapter.getNourishmentByNourishmentId method");
         return this.webClient
                 .get()
@@ -30,14 +30,15 @@ public class NourishmentClientAdapter implements NourishmentClientPort {
     }
 
     @Override
-    public Mono<Void> updateNourishment(Long nourishmentId, UpdateNourishmentRequest updateNourishmentRequest) {
+    public Mono<Void> updateNourishment(String nourishmentId, UpdateNourishmentRequest updateNourishmentRequest) {
         log.info("Invoking NourishmentClientAdapter.updateNourishment method");
         return this.webClient
                 .put()
                 .uri("/api/v0/nourishments/{nourishmentId}", nourishmentId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(updateNourishmentRequest), UpdateNourishmentRequest.class)
-                .exchangeToMono(clientResponse -> clientResponse.bodyToMono(Void.class));
+                .exchangeToMono(clientResponse -> clientResponse.bodyToMono(Void.class)
+                        .onErrorResume(e -> Mono.error(new RuntimeException("Error updating nourishment"))));
     }
 
 }

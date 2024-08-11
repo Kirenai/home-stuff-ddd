@@ -7,10 +7,11 @@ import me.kirenai.re.consumption.domain.model.dto.UpdateNourishmentRequest;
 import me.kirenai.re.consumption.domain.port.in.CreateConsumptionPort;
 import me.kirenai.re.consumption.domain.port.in.GetConsumptionPort;
 import me.kirenai.re.consumption.domain.port.in.ListConsumptionsPort;
+import me.kirenai.re.consumption.domain.port.out.client.KeycloakClientPort;
 import me.kirenai.re.consumption.domain.port.out.client.NourishmentClientPort;
-import me.kirenai.re.consumption.domain.port.out.client.UserClientPort;
-import me.kirenai.re.consumption.util.ConsumptionProcess;
+import me.kirenai.re.consumption.domain.service.ConsumptionProcess;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -21,33 +22,34 @@ public class ConsumptionService {
     private final GetConsumptionPort getConsumptionPort;
     private final ListConsumptionsPort listConsumptionsPort;
     private final CreateConsumptionPort createConsumptionPort;
-    private final UserClientPort userClientPort;
     private final NourishmentClientPort nourishmentClientPort;
+    private final KeycloakClientPort keycloakClientPort;
 
     public Flux<Consumption> getConsumptions(Pageable pageable) {
         log.info("Invoking ConsumptionService.getConsumptions method");
-        return this.listConsumptionsPort.getConsumptions(pageable);
+        return this.listConsumptionsPort.execute(pageable);
     }
 
-    public Mono<Consumption> getConsumptionById(Long consumptionId) {
+    public Mono<Consumption> getConsumptionById(String consumptionId) {
         log.info("Invoking ConsumptionService.getConsumptionById method");
-        return this.getConsumptionPort.getConsumptionById(consumptionId);
+        return this.getConsumptionPort.execute(consumptionId);
     }
 
-    public Mono<Consumption> createConsumption(Long userId, Long nourishmentId, Consumption consumption) {
+    @Transactional
+    public Mono<Consumption> createConsumption(String email, String nourishmentId, Consumption consumption) {
         log.info("Invoking ConsumptionService.createConsumption method");
-        return this.userClientPort.getUserByUserId(userId)
-                .flatMap(userResponse -> {
-                    consumption.setUserId(userResponse.userId());
+        return this.keycloakClientPort.getUserIdByEmail(email)
+                .flatMap(userId -> {
+                    consumption.setUserId(userId);
                     return this.nourishmentClientPort.getNourishmentByNourishmentId(nourishmentId);
                 })
                 .flatMap(nourishmentResponse -> {
                     consumption.setNourishmentId(nourishmentResponse.nourishmentId());
                     ConsumptionProcess consumptionProcess = new ConsumptionProcess(consumption);
                     UpdateNourishmentRequest nourishmentRequest = consumptionProcess.consumeToUpdateNourishmentRequest(nourishmentResponse);
-                    return this.nourishmentClientPort.updateNourishment(nourishmentResponse.nourishmentId(), nourishmentRequest);
-                })
-                .then(this.createConsumptionPort.createConsumption(consumption));
+                    return this.nourishmentClientPort.updateNourishment(nourishmentResponse.nourishmentId(), nourishmentRequest)
+                            .then(this.createConsumptionPort.execute(consumption));
+                });
     }
 
 }

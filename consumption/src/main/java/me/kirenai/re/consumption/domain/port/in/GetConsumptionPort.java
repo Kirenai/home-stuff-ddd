@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface GetConsumptionPort {
 
-    Mono<Consumption> getConsumptionById(Long consumptionId);
+    Mono<Consumption> execute(String consumptionId);
 
 }

@@ -14,10 +14,4 @@ public class WebClientConfig {
         return builder.baseUrl("http://NOURISHMENT").filter(loadBalancerExchangeFilterFunction).build();
     }
 
-    @Bean
-    public WebClient webClientUser(WebClient.Builder builder,
-                                   ReactorLoadBalancerExchangeFilterFunction loadBalancerExchangeFilterFunction) {
-        return builder.baseUrl("http://USER").filter(loadBalancerExchangeFilterFunction).build();
-    }
-
 }
