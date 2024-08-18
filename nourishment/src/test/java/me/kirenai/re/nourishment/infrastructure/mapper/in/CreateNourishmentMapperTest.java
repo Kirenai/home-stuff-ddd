@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import static me.kirenai.re.nourishment.domain.enums.NourishmentTypeEnum.PERCENTAGE;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class CreateNourishmentMapperTest {
     private final CreateNourishmentMapper mapper = Mappers.getMapper(CreateNourishmentMapper.class);
