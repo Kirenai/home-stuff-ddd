@@ -22,7 +22,7 @@ jobs:
         cache: maven
 
     - name: Build module with Maven
-      run: mvn -pl ${{maxtrix.module}} -am -P prod -B package --file pom.xml
+      run: mvn -P prod -B clean package --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
 #    - name: Update dependency graph
