@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        module: ['gateway', 'nourishment']
+
     steps:
     - name: Check out the repository
       uses: actions/checkout@v4
@@ -21,8 +25,8 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build module with Maven
-      run: mvn -P prod -B clean package --file pom.xml
+    - name: Build Maven project for ${{matrix.module}}
+      run: mvn -pl ${{matrix.module}} -P prod -B clean package --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
 #    - name: Update dependency graph
