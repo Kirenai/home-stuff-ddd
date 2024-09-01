@@ -2,4 +2,4 @@ spring:
   application:
     name: nourishment
   profiles:
-    active: dev
+    active: local
