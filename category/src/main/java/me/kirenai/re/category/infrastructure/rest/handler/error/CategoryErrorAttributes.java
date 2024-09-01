@@ -18,7 +18,7 @@ public class CategoryErrorAttributes extends DefaultErrorAttributes {
 
     @Override
     public Map<String, Object> getErrorAttributes(ServerRequest serverRequest, ErrorAttributeOptions options) {
-        log.info("Invoking RoleErrorAttributes#getErrorAttributes(..) method");
+        log.info("Invoking CategoryErrorAttributes#getErrorAttributes(..) method");
         Map<String, Object> errorAttributes = new LinkedHashMap<>();
         Throwable throwable = super.getError(serverRequest);
 

@@ -50,7 +50,7 @@ public class CategoryErrorWebExceptionHandler extends AbstractErrorWebExceptionH
     }
 
     private Mono<ServerResponse> renderErrorResponse(ServerRequest serverRequest) {
-        log.info("Invoking RoleErrorWebExceptionHandler#renderErrorResponse(.) method");
+        log.info("Invoking CategoryErrorWebExceptionHandler#renderErrorResponse(.) method");
         Map<String, Object> errorMap = super.getErrorAttributes(serverRequest, ErrorAttributeOptions.defaults());
         HttpStatus status = (HttpStatus) Optional.ofNullable(errorMap.get("status")).orElse(INTERNAL_SERVER_ERROR);
         return ServerResponse
