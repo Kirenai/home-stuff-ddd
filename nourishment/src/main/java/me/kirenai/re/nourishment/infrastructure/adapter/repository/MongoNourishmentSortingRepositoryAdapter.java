@@ -8,13 +8,18 @@ import me.kirenai.re.nourishment.infrastructure.repository.MongoNourishmentSorti
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
 public class MongoNourishmentSortingRepositoryAdapter implements NourishmentSortingRepositoryPort {
-
     private final MongoNourishmentSortingRepository nourishmentSortingRepository;
     private final MongoNourishmentMapper mapper;
+
+    @Override
+    public Mono<Long> count() {
+        return this.nourishmentSortingRepository.count();
+    }
 
     @Override
     public Flux<Nourishment> findAll(Pageable pageable) {
@@ -33,5 +38,4 @@ public class MongoNourishmentSortingRepositoryAdapter implements NourishmentSort
         return this.nourishmentSortingRepository.findAllByUserId(userId, pageable)
                 .map(this.mapper::mapOutNourishmentEntityToNourishment);
     }
-
 }

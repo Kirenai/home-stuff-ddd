@@ -3,7 +3,7 @@ package me.kirenai.re.nourishment.infrastructure.rest.handler.error;
 import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.nourishment.domain.exception.NourishmentNotFoundException;
 import me.kirenai.re.nourishment.domain.exception.NourishmentTypeNotFoundException;
-import me.kirenai.re.validation.exception.ValidatorException;
+import me.kirenai.re.nourishment.domain.exception.ValidatorException;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.http.HttpStatus;

@@ -10,7 +10,8 @@ import me.kirenai.re.nourishment.infrastructure.mapper.in.CreateNourishmentMappe
 import me.kirenai.re.nourishment.infrastructure.mapper.in.GetNourishmentMapper;
 import me.kirenai.re.nourishment.infrastructure.mapper.in.ListNourishmentMapper;
 import me.kirenai.re.nourishment.infrastructure.mapper.in.UpdateNourishmentMapper;
-import me.kirenai.re.validation.Validator;
+import me.kirenai.re.nourishment.infrastructure.validation.Validator;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -39,9 +40,9 @@ public class NourishmentHandler {
         int size = Integer.parseInt(request.queryParam("size").orElse("5"));
         String[] sort = request.queryParam("sort").orElse("nourishmentId,ASC").split(",");
         PageRequest pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.valueOf(sort[1]), sort[0]));
-        Flux<ListNourishmentsResponse> response = this.nourishmentService.getNourishments(pageable)
-                .map(this.listNourishmentMapper::mapOutNourishmentToListNourishmentsResponse);
-        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(response, ListNourishmentsResponse.class);
+        Mono<Page<ListNourishmentsResponse>> response = this.nourishmentService.getNourishments(pageable)
+                .map(nourishments -> nourishments.map(this.listNourishmentMapper::mapOutNourishmentToListNourishmentsResponse));
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(response, Page.class);
     }
 
     public Mono<ServerResponse> findById(ServerRequest request) {

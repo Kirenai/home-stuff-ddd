@@ -10,6 +10,7 @@ import me.kirenai.re.nourishment.domain.port.in.ListNourishmentsPort;
 import me.kirenai.re.nourishment.domain.port.in.UpdateNourishmentPort;
 import me.kirenai.re.nourishment.domain.port.out.client.CategoryClientPort;
 import me.kirenai.re.nourishment.domain.port.out.client.UserClientPort;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Flux;
@@ -27,7 +28,7 @@ public class NourishmentService {
     private final UserClientPort userClientPort;
     private final CategoryClientPort categoryClientPort;
 
-    public Flux<Nourishment> getNourishments(PageRequest pageable) {
+    public Mono<Page<Nourishment>> getNourishments(PageRequest pageable) {
         log.info("Invoking NourishmentService.getNourishments method");
         return this.listNourishmentsPort.getNourishments(pageable);
     }
