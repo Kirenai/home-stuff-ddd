@@ -2,7 +2,7 @@ package me.kirenai.re.category.infrastructure.entity;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * Categories
@@ -12,13 +12,13 @@ import org.springframework.data.relational.core.mapping.Table;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
-@Table(name = "categories")
+@Document(collection = "categories")
 public class CategoryEntity {
 
     @Id
-    private Long categoryId;
+    private String categoryId;
     private String name;
 
 }

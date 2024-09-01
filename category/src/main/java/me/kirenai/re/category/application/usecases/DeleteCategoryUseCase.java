@@ -11,7 +11,7 @@ public class DeleteCategoryUseCase implements DeleteCategoryPort {
     private final CategoryRepositoryPort categoryRepositoryPort;
 
     @Override
-    public Mono<Void> deleteCategory(Long categoryId) {
+    public Mono<Void> deleteCategory(String categoryId) {
         return this.categoryRepositoryPort.deleteCategory(categoryId);
     }
 

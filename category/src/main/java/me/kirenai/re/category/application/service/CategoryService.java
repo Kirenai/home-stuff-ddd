@@ -23,7 +23,7 @@ public class CategoryService {
         return this.listCategoriesPort.findAll(pageable);
     }
 
-    public Mono<Category> getCategoryById(Long categoryId) {
+    public Mono<Category> getCategoryById(String categoryId) {
         log.info("Invoking CategoryService.getCategoryById method");
         return this.getCategoryPort.getCategoryById(categoryId);
     }
@@ -33,12 +33,12 @@ public class CategoryService {
         return this.createCategoryPort.createCategory(category);
     }
 
-    public Mono<Category> updateCategory(Long categoryId, Category category) {
+    public Mono<Category> updateCategory(String categoryId, Category category) {
         log.info("Invoking CategoryService.updateCategory method");
         return this.updateCategoryPort.updateCategory(categoryId, category);
     }
 
-    public Mono<Void> deleteCategory(Long categoryId) {
+    public Mono<Void> deleteCategory(String categoryId) {
         log.info("Invoking CategoryService.deleteCategory method");
         return this.deleteCategoryPort.deleteCategory(categoryId);
     }

@@ -4,6 +4,6 @@ import reactor.core.publisher.Mono;
 
 public interface DeleteCategoryPort {
 
-    Mono<Void> deleteCategory(Long categoryId);
+    Mono<Void> deleteCategory(String categoryId);
 
 }

@@ -5,6 +5,6 @@ import reactor.core.publisher.Mono;
 
 public interface GetCategoryPort {
 
-    Mono<Category> getCategoryById(Long categoryId);
+    Mono<Category> getCategoryById(String categoryId);
 
 }

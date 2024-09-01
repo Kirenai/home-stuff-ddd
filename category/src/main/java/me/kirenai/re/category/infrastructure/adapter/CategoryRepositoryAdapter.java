@@ -17,9 +17,9 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
     private final CategoryMapper mapper;
 
     @Override
-    public Mono<Category> findById(Long categoryId) {
+    public Mono<Category> findById(String categoryId) {
         return this.categoryRepository.findById(categoryId)
-                .switchIfEmpty(Mono.error(new CategoryNotFoundException(String.format("Category not found with id: %d", categoryId))))
+                .switchIfEmpty(Mono.error(new CategoryNotFoundException(String.format("Category not found with id: %s", categoryId))))
                 .map(this.mapper::mapOutCategoryEntityToCategory);
     }
 
@@ -31,7 +31,7 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
     }
 
     @Override
-    public Mono<Category> updateCategory(Long categoryId, Category category) {
+    public Mono<Category> updateCategory(String categoryId, Category category) {
         return this.categoryRepository.findById(categoryId)
                 .map(categoryEntity -> {
                     categoryEntity.setName(category.getName());
@@ -41,7 +41,7 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
                 .map(this.mapper::mapOutCategoryEntityToCategory);
     }
 
-    public Mono<Void> deleteCategory(Long categoryId) {
+    public Mono<Void> deleteCategory(String categoryId) {
         return this.categoryRepository.findById(categoryId)
                 .flatMap(this.categoryRepository::delete);
     }

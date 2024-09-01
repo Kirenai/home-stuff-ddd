@@ -42,7 +42,7 @@ public class CategoryHandler {
     public Mono<ServerResponse> findById(ServerRequest request) {
         log.info("Invoking CategoryHandler.findById method");
         String categoryId = request.pathVariable(PATH_PARAM_CATEGORY_ID);
-        return this.categoryService.getCategoryById(Long.valueOf(categoryId))
+        return this.categoryService.getCategoryById(categoryId)
                 .map(this.mapper::mapOutCategoryToGetCategoryResponse)
                 .flatMap(response -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
@@ -67,7 +67,7 @@ public class CategoryHandler {
         return request.bodyToMono(UpdateCategoryRequest.class)
                 .doOnNext(this.validator::validate)
                 .map(this.mapper::mapInUpdateCategoryRequestToCategory)
-                .flatMap(category -> this.categoryService.updateCategory(Long.valueOf(categoryId), category))
+                .flatMap(category -> this.categoryService.updateCategory(categoryId, category))
                 .map(this.mapper::mapOutCategoryToUpdateCategoryResponse)
                 .flatMap(response -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_JSON)
@@ -77,7 +77,7 @@ public class CategoryHandler {
     public Mono<ServerResponse> delete(ServerRequest request) {
         log.info("Invoking CategoryHandler.delete method");
         String categoryId = request.pathVariable(PATH_PARAM_CATEGORY_ID);
-        return this.categoryService.deleteCategory(Long.valueOf(categoryId))
+        return this.categoryService.deleteCategory(categoryId)
                 .then(Mono.defer(() -> ServerResponse.noContent().build()));
     }
 

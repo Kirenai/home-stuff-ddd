@@ -12,7 +12,7 @@ public class GetCategoryUseCase implements GetCategoryPort {
     private final CategoryRepositoryPort categoryRepositoryPort;
 
     @Override
-    public Mono<Category> getCategoryById(Long categoryId) {
+    public Mono<Category> getCategoryById(String categoryId) {
         return this.categoryRepositoryPort.findById(categoryId);
     }
 

@@ -23,6 +23,7 @@ import java.util.Optional;
 
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.http.HttpMethod.PUT;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -43,7 +44,7 @@ public class CategoryErrorWebExceptionHandler extends AbstractErrorWebExceptionH
     @Override
     protected RouterFunction<ServerResponse> getRoutingFunction(ErrorAttributes errorAttributes) {
         return RouterFunctions.route(
-                RequestPredicates.methods(GET, PUT, DELETE),
+                RequestPredicates.methods(GET, POST, PUT, DELETE),
                 this::renderErrorResponse
         );
     }

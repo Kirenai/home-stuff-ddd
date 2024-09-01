@@ -12,7 +12,7 @@ public class UpdateCategoryUseCase implements UpdateCategoryPort {
     private final CategoryRepositoryPort categoryRepositoryPort;
 
     @Override
-    public Mono<Category> updateCategory(Long categoryId, Category category) {
+    public Mono<Category> updateCategory(String categoryId, Category category) {
         return this.categoryRepositoryPort.updateCategory(categoryId, category);
     }
 
