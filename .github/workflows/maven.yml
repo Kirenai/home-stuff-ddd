@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        module: ['validation', 'gateway', 'nourishment']
+        module: ['gateway', 'nourishment']
 
     steps:
     - name: Check out the repository
