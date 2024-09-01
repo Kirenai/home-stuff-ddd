@@ -6,7 +6,7 @@ import me.kirenai.re.consumption.application.service.ConsumptionService;
 import me.kirenai.re.consumption.domain.model.dto.CreateConsumptionRequest;
 import me.kirenai.re.consumption.domain.model.dto.ListConsumptionsResponse;
 import me.kirenai.re.consumption.infrastructure.mapper.ConsumptionMapper;
-import me.kirenai.re.validation.Validator;
+import me.kirenai.re.consumption.infrastructure.validation.Validator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;

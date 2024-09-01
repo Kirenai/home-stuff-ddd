@@ -3,7 +3,7 @@ package me.kirenai.re.consumption.infrastructure.rest.handler.error;
 import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.consumption.domain.exception.ConsumptionNotFoundException;
 import me.kirenai.re.consumption.domain.exception.KeycloakUserNotFoundException;
-import me.kirenai.re.validation.exception.ValidatorException;
+import me.kirenai.re.consumption.domain.exception.ValidatorException;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class ConsumptionErrorAttributes extends DefaultErrorAttributes {
 
     @Override
     public Map<String, Object> getErrorAttributes(ServerRequest serverRequest, ErrorAttributeOptions options) {
-        log.info("Invoking RoleErrorAttributes#getErrorAttributes(..) method");
+        log.info("Invoking ConsumptionErrorAttributes#getErrorAttributes(..) method");
         Map<String, Object> errorAttributes = new LinkedHashMap<>();
         Throwable throwable = super.getError(serverRequest);
 

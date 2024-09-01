@@ -3,12 +3,7 @@ package me.kirenai.re.consumption;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(
-        scanBasePackages = {
-                "me.kirenai.re.consumption",
-                "me.kirenai.re.validation"
-        }
-)
+@SpringBootApplication
 public class ConsumptionApplication {
 
     public static void main(String[] args) {
