@@ -6,7 +6,6 @@ import me.kirenai.re.category.domain.model.Category;
 import me.kirenai.re.category.domain.port.out.CategoryRepositoryPort;
 import me.kirenai.re.category.infrastructure.mapper.CategoryMapper;
 import me.kirenai.re.category.infrastructure.repository.CategoryRepository;
-import me.kirenai.re.category.util.MapperUtils;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
@@ -34,7 +33,10 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
     @Override
     public Mono<Category> updateCategory(Long categoryId, Category category) {
         return this.categoryRepository.findById(categoryId)
-                .map(categoryEntity -> MapperUtils.loadCategoryToCategoryEntityByReference(category, categoryEntity))
+                .map(categoryEntity -> {
+                    categoryEntity.setName(category.getName());
+                    return categoryEntity;
+                })
                 .flatMap(this.categoryRepository::save)
                 .map(this.mapper::mapOutCategoryEntityToCategory);
     }

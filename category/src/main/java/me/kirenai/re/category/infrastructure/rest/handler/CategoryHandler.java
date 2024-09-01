@@ -7,7 +7,7 @@ import me.kirenai.re.category.domain.model.dto.CreateCategoryRequest;
 import me.kirenai.re.category.domain.model.dto.ListCategoriesResponse;
 import me.kirenai.re.category.domain.model.dto.UpdateCategoryRequest;
 import me.kirenai.re.category.infrastructure.mapper.CategoryMapper;
-import me.kirenai.re.validation.Validator;
+import me.kirenai.re.category.infrastructure.validation.Validator;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -18,12 +18,11 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import static me.kirenai.re.category.util.Constants.PATH_PARAM_CATEGORY_ID;
-
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class CategoryHandler {
+    private static final String PATH_PARAM_CATEGORY_ID = "categoryId";
 
     private final CategoryService categoryService;
     private final CategoryMapper mapper;

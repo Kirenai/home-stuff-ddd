@@ -2,6 +2,7 @@ package me.kirenai.re.category.infrastructure.rest.handler.error;
 
 import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.category.domain.exception.CategoryNotFoundException;
+import me.kirenai.re.category.domain.exception.ValidatorException;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,10 @@ public class CategoryErrorAttributes extends DefaultErrorAttributes {
             log.error("An error of type CategoryNotFoundException occurs");
             errorAttributes.put("error", exception.createError(serverRequest));
             errorAttributes.put("status", HttpStatus.NOT_FOUND);
+        } else if (throwable instanceof ValidatorException validatorException) {
+            log.error("An error of type ValidatorException occurs");
+            errorAttributes.put("error", validatorException.createError());
+            errorAttributes.put("status", HttpStatus.BAD_REQUEST);
         }
 
         return errorAttributes;
