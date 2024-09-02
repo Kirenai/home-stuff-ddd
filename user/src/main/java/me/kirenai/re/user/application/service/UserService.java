@@ -3,8 +3,11 @@ package me.kirenai.re.user.application.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.user.domain.model.User;
-import me.kirenai.re.user.domain.port.in.*;
-import org.springframework.data.domain.Pageable;
+import me.kirenai.re.user.domain.port.in.CreateUserPort;
+import me.kirenai.re.user.domain.port.in.DeleteUserPort;
+import me.kirenai.re.user.domain.port.in.GetUserPort;
+import me.kirenai.re.user.domain.port.in.ListUsersPort;
+import me.kirenai.re.user.domain.port.in.UpdateUserPort;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -18,14 +21,14 @@ public class UserService {
     private final UpdateUserPort updateUserPort;
     private final DeleteUserPort deleteUserPort;
 
-    public Flux<User> getUsers(Pageable pageable) {
+    public Flux<User> getUsers() {
         log.info("Invoking UserService.getUsers method");
-        return this.listUsersPort.getUsers(pageable);
+        return this.listUsersPort.getUsers();
     }
 
-    public Mono<User> getUserById(Long userId) {
+    public Mono<User> getUserBy(String email) {
         log.info("Invoking UserService.getUserById method");
-        return this.getUserPort.getUserById(userId);
+        return this.getUserPort.getUserBy(email);
     }
 
     public Mono<User> createUser(User user) {

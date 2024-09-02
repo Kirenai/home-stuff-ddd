@@ -1,9 +1,12 @@
 package me.kirenai.re.user.infrastructure.config;
 
 import me.kirenai.re.user.application.service.UserService;
-import me.kirenai.re.user.application.usecases.*;
-import me.kirenai.re.user.domain.port.out.UserRepositoryPort;
-import me.kirenai.re.user.domain.port.out.UserSortingRepositoryPort;
+import me.kirenai.re.user.application.usecases.CreateUserUseCase;
+import me.kirenai.re.user.application.usecases.DeleteUserUseCase;
+import me.kirenai.re.user.application.usecases.GetUserUseCase;
+import me.kirenai.re.user.application.usecases.ListUsersUseCase;
+import me.kirenai.re.user.application.usecases.UpdateUserUseCase;
+import me.kirenai.re.user.domain.port.out.client.KeycloakClientPort;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,14 +14,13 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     @Bean
-    public UserService userService(UserRepositoryPort userRepositoryPort,
-                                   UserSortingRepositoryPort userSortingRepositoryPort) {
+    public UserService userService(KeycloakClientPort keycloakClientPort) {
         return new UserService(
-                new GetUserUseCase(userRepositoryPort),
-                new ListUsersUseCase(userSortingRepositoryPort),
-                new CreateUserUseCase(userRepositoryPort),
-                new UpdateUserUseCase(userRepositoryPort),
-                new DeleteUserUseCase(userRepositoryPort)
+                new GetUserUseCase(keycloakClientPort),
+                new ListUsersUseCase(),
+                new CreateUserUseCase(),
+                new UpdateUserUseCase(),
+                new DeleteUserUseCase()
         );
     }
 

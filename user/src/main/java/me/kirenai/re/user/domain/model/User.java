@@ -1,6 +1,10 @@
 package me.kirenai.re.user.domain.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -8,12 +12,5 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-
-    private Long userId;
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private Integer age;
-
+    private String userId;
 }

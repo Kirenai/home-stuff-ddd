@@ -1,0 +1,20 @@
+server:
+  port: 8081
+spring:
+  webflux:
+    base-path: /api/v0
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+keycloak:
+  serverUrl: http://localhost:9090
+  realm: master
+  clientId: admin-cli
+  username: admin
+  password: admin
+
+logging:
+  level:
+    web: debug

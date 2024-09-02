@@ -1,6 +1,8 @@
 package me.kirenai.re.user.infrastructure.rest.handler.error;
 
 import lombok.extern.slf4j.Slf4j;
+import me.kirenai.re.user.domain.exception.KeycloakServiceUnavailableException;
+import me.kirenai.re.user.domain.exception.KeycloakUserNotFoundException;
 import me.kirenai.re.user.domain.exception.UserNotFoundException;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.DefaultErrorAttributes;
@@ -25,6 +27,14 @@ public class UserErrorAttributes extends DefaultErrorAttributes {
             log.error("An error of type UserNotFoundException occurs");
             errorAttributes.put("error", exception.createError(serverRequest));
             errorAttributes.put("status", HttpStatus.NOT_FOUND);
+        } else if (throwable instanceof KeycloakUserNotFoundException exception) {
+            log.error("An error of type KeycloakUserNotFoundException occurs");
+            errorAttributes.put("error", exception.createError(serverRequest));
+            errorAttributes.put("status", HttpStatus.NOT_FOUND);
+        } else if (throwable instanceof KeycloakServiceUnavailableException exception) {
+            log.error("An error of type KeycloakServiceUnavailableException occurs");
+            errorAttributes.put("error", exception.createError(serverRequest));
+            errorAttributes.put("status", HttpStatus.SERVICE_UNAVAILABLE);
         }
 
         return errorAttributes;

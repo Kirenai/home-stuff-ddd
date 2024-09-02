@@ -4,10 +4,16 @@ spring:
   webflux:
     base-path: /api/v0
   r2dbc:
-    url: r2dbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/hs_user
-    username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:}
+    url: r2dbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/hs_user
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
 eureka:
   client:
     serviceUrl:
-      defaultZone: https://{EUREKA_SERVER:localhost}:{EUREKA_SERVER_PORT:8761}/eureka/
+      defaultZone: https://{EUREKA_SERVER}:{EUREKA_SERVER_PORT}/eureka/
+keycloak:
+  serverUrl: ${KEYCLOAK_SERVER}
+  realm: ${KEYCLOAK_REALM}
+  clientId: ${KEYCLOAK_CLIENT_ID}
+  username: ${KEYCLOAK_USERNAME}
+  password: ${KEYCLOAK_PASSWORD}
