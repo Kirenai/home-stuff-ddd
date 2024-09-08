@@ -7,7 +7,7 @@ import me.kirenai.re.consumption.domain.model.dto.UpdateNourishmentRequest;
 import me.kirenai.re.consumption.domain.port.in.CreateConsumptionPort;
 import me.kirenai.re.consumption.domain.port.in.GetConsumptionPort;
 import me.kirenai.re.consumption.domain.port.in.ListConsumptionsPort;
-import me.kirenai.re.consumption.domain.port.out.client.KeycloakClientPort;
+import me.kirenai.re.consumption.domain.port.out.client.UserClientPort;
 import me.kirenai.re.consumption.domain.port.out.client.NourishmentClientPort;
 import me.kirenai.re.consumption.domain.service.ConsumptionProcess;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +23,7 @@ public class ConsumptionService {
     private final ListConsumptionsPort listConsumptionsPort;
     private final CreateConsumptionPort createConsumptionPort;
     private final NourishmentClientPort nourishmentClientPort;
-    private final KeycloakClientPort keycloakClientPort;
+    private final UserClientPort userClientPort;
 
     public Flux<Consumption> getConsumptions(Pageable pageable) {
         log.info("Invoking ConsumptionService.getConsumptions method");
@@ -38,10 +38,10 @@ public class ConsumptionService {
     @Transactional
     public Mono<Consumption> createConsumption(String email, String nourishmentId, Consumption consumption) {
         log.info("Invoking ConsumptionService.createConsumption method");
-        return this.keycloakClientPort.getUserIdByEmail(email)
-                .flatMap(userId -> {
-                    consumption.setUserId(userId);
-                    return this.nourishmentClientPort.getNourishmentByNourishmentId(nourishmentId);
+        return this.userClientPort.getUserBy(email)
+                .flatMap(user -> {
+                    consumption.setUserId(user.userId());
+                    return this.nourishmentClientPort.getNourishmentBy(nourishmentId);
                 })
                 .flatMap(nourishmentResponse -> {
                     consumption.setNourishmentId(nourishmentResponse.nourishmentId());

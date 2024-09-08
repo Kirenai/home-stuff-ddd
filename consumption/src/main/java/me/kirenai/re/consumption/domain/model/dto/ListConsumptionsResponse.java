@@ -6,7 +6,7 @@ import lombok.Builder;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ListConsumptionsResponse(
-        Long consumptionId,
+        String consumptionId,
         Integer unit,
         Integer percentage
 ) {

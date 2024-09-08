@@ -9,6 +9,12 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebClientConfig {
 
     @Bean
+    public WebClient webClientUser(WebClient.Builder builder,
+                                   ReactorLoadBalancerExchangeFilterFunction loadBalancerExchangeFilterFunction) {
+        return builder.baseUrl("http://USER").filter(loadBalancerExchangeFilterFunction).build();
+    }
+
+    @Bean
     public WebClient webClientNourishment(WebClient.Builder builder,
                                           ReactorLoadBalancerExchangeFilterFunction loadBalancerExchangeFilterFunction) {
         return builder.baseUrl("http://NOURISHMENT").filter(loadBalancerExchangeFilterFunction).build();

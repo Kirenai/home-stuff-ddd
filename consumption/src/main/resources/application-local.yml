@@ -1,0 +1,13 @@
+server:
+  port: 8085
+spring:
+  webflux:
+    base-path: /api/v0
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    enabled: false
+#logging:
+#  level:
+#    web: debug

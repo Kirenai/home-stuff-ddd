@@ -6,7 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface NourishmentClientPort {
 
-    Mono<GetNourishmentResponse> getNourishmentByNourishmentId(String nourishmentId);
+    Mono<GetNourishmentResponse> getNourishmentBy(String nourishmentId);
 
     Mono<Void> updateNourishment(String nourishmentId, UpdateNourishmentRequest updateNourishmentRequest);
 

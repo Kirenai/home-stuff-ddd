@@ -20,8 +20,8 @@ public class NourishmentClientAdapter implements NourishmentClientPort {
     private final WebClient webClient;
 
     @Override
-    public Mono<GetNourishmentResponse> getNourishmentByNourishmentId(String nourishmentId) {
-        log.info("Invoking NourishmentClientAdapter.getNourishmentByNourishmentId method");
+    public Mono<GetNourishmentResponse> getNourishmentBy(String nourishmentId) {
+        log.info("Invoking NourishmentClientAdapter.getNourishmentBy(nourishmentId) method");
         return this.webClient
                 .get()
                 .uri("/api/v0/nourishments/{nourishmentId}", nourishmentId)
