@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        module: ['gateway', 'nourishment', 'consumption', 'user']
+        module: ['gateway', 'nourishment', 'consumption', 'user', 'category', 'eureka-server']
 
     steps:
     - name: Check out the repository
