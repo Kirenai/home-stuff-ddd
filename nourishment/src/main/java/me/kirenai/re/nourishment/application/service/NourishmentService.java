@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.kirenai.re.nourishment.domain.model.Nourishment;
 import me.kirenai.re.nourishment.domain.port.in.CreateNourishmentPort;
 import me.kirenai.re.nourishment.domain.port.in.DeleteNourishmentPort;
+import me.kirenai.re.nourishment.domain.port.in.GetNourishmentByNamePort;
 import me.kirenai.re.nourishment.domain.port.in.GetNourishmentPort;
 import me.kirenai.re.nourishment.domain.port.in.ListNourishmentsPort;
 import me.kirenai.re.nourishment.domain.port.in.UpdateNourishmentPort;
@@ -21,6 +22,7 @@ import reactor.core.publisher.Mono;
 public class NourishmentService {
 
     private final GetNourishmentPort getNourishmentPort;
+    private final GetNourishmentByNamePort getNourishmentByNamePort;
     private final ListNourishmentsPort listNourishmentsPort;
     private final CreateNourishmentPort createNourishmentPort;
     private final UpdateNourishmentPort updateNourishmentPort;
@@ -36,6 +38,11 @@ public class NourishmentService {
     public Mono<Nourishment> getNourishmentById(String nourishmentId) {
         log.info("Invoking NourishmentService.getNourishmentById method");
         return this.getNourishmentPort.findById(nourishmentId);
+    }
+
+    public Mono<Nourishment> getNourishmentByName(String name) {
+        log.info("Invoking NourishmentService.getNourishmentBy method");
+        return this.getNourishmentByNamePort.execute(name);
     }
 
     public Flux<Nourishment> getNourishmentsByUserId(String userId, Pageable pageable) {

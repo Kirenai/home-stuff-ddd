@@ -53,6 +53,14 @@ public class NourishmentHandler {
                 .flatMap(response -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(response));
     }
 
+    public Mono<ServerResponse> findByName(ServerRequest serverRequest) {
+        log.info("Invoking NourishmentHandler.findByName method");
+        String name = serverRequest.pathVariable("name");
+        return this.nourishmentService.getNourishmentByName(name)
+                .map(this.getNourishmentMapper::mapOutNourishmentToGetNourishmentResponse)
+                .flatMap(response -> ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(response));
+    }
+
     public Mono<ServerResponse> findAllByUserId(ServerRequest request) {
         log.info("Invoking NourishmentHandler.findAllByUserId method");
         int page = Integer.parseInt(request.queryParam("page").orElse("0"));

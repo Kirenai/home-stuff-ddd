@@ -24,6 +24,13 @@ public class MongoNourishmentRepositoryAdapter implements NourishmentRepositoryP
     }
 
     @Override
+    public Mono<Nourishment> findByName(String name) {
+        return this.mongoNourishmentRepository.findByName(name)
+                .switchIfEmpty(Mono.error(new NourishmentNotFoundException(String.format("Nourishment not found by name: %s", name))))
+                .map(this.mapper::mapOutNourishmentEntityToNourishment);
+    }
+
+    @Override
     public Mono<Nourishment> createNourishment(Nourishment nourishment) {
         return Mono.just(this.mapper.mapInNourishmentToNourishmentEntity(nourishment))
                 .flatMap(this.mongoNourishmentRepository::save)

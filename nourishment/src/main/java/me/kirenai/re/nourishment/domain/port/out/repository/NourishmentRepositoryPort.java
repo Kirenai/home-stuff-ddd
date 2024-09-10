@@ -7,6 +7,8 @@ public interface NourishmentRepositoryPort {
 
     Mono<Nourishment> findById(String nourishmentId);
 
+    Mono<Nourishment> findByName(String name);
+
     Mono<Nourishment> createNourishment(Nourishment nourishment);
 
     Mono<Nourishment> updateNourishment(String nourishmentId, Nourishment nourishment);

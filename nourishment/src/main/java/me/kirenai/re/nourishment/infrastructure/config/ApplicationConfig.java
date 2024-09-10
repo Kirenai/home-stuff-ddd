@@ -5,6 +5,7 @@ import me.kirenai.re.nourishment.application.service.NourishmentService;
 import me.kirenai.re.nourishment.application.usecases.CreateNourishmentPriceUseCase;
 import me.kirenai.re.nourishment.application.usecases.CreateNourishmentUseCase;
 import me.kirenai.re.nourishment.application.usecases.DeleteNourishmentUseCase;
+import me.kirenai.re.nourishment.application.usecases.GetNourishmentByNameUseCase;
 import me.kirenai.re.nourishment.application.usecases.GetNourishmentUseCase;
 import me.kirenai.re.nourishment.application.usecases.ListNourishmentsPriceUseCase;
 import me.kirenai.re.nourishment.application.usecases.ListNourishmentsUseCase;
@@ -26,6 +27,7 @@ public class ApplicationConfig {
                                                       CategoryClientPort categoryClientPort) {
         return new NourishmentService(
                 new GetNourishmentUseCase(nourishmentRepositoryPort),
+                new GetNourishmentByNameUseCase(nourishmentRepositoryPort),
                 new ListNourishmentsUseCase(nourishmentSortingRepositoryPort),
                 new CreateNourishmentUseCase(nourishmentRepositoryPort),
                 new UpdateNourishmentUseCase(nourishmentRepositoryPort),

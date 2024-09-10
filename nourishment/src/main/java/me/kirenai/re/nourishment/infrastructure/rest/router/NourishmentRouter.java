@@ -19,6 +19,7 @@ public class NourishmentRouter {
         return RouterFunctions.route()
                 .GET(URL, nourishmentHandler::findAll)
                 .GET(URL + "/{nourishmentId}", nourishmentHandler::findById)
+                .GET(URL + "/name/{name}", nourishmentHandler::findByName)
                 .GET(URL + "/user/{userId}", nourishmentHandler::findAllByUserId)
                 .GET(URL + "/isAvailable/{isAvailable}", nourishmentHandler::findAllByIsAvailable)
                 .POST(URL + "/user/{userId}/category/{categoryId}", nourishmentHandler::create)
