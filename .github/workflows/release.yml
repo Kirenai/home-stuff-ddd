@@ -1,0 +1,36 @@
+name: Release on Tag
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Remove `-SNAPSHOT` from version in pom.xml
+        run: |
+          sed -i 's/-SNAPSHOT//g' pom.xml
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add pom.xml
+          git commit -m "Remove -SNAPSHOT from pom.xml for release"
+          git tag -f ${{ github.ref_name }}
+          git push origin --force --tags
+
+      - name: Deploy to GitHub Packages
+        run: mvn -P prod -B deploy --file pom.xml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
